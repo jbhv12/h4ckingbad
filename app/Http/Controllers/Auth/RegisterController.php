@@ -68,4 +68,14 @@ class RegisterController extends Controller
             'password' => bcrypt($data['password']),
         ]);
     }
+
+
+    /**
+     *
+     * Overriding method from RegisterUsers Class to disable Registartion by User Directly.
+     */
+    protected function showRegistrationForm()
+    {
+        return redirect()->to('login')->with('warning', 'Registration is disabled.');
+    }
 }
