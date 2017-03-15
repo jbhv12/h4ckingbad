@@ -1,4 +1,4 @@
-// app/controllers/HomeController.php<
+<!-- // app/controllers/HomeController.php<
 
 ...
 
@@ -11,4 +11,4 @@ public function showLogin()
 public function doLogin()
 {
 // process the form
-}
+} -->
