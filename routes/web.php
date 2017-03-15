@@ -16,14 +16,26 @@ Route::get('/', function () {
 });
 Auth::routes();
 
+//TODO: create controller files for all routes
+
 Route::get('/problems',function(){
+  if (Auth::guest())
+  {
+     return redirect('/login');
+  //  return "Bummer! You need to log in, dude.";
+  }
   $problems = DB::table('problems')->get();     //add condition. return problems appropriate to round.
   return View::make('problemlist', compact('problems'));
 });
 
 Route::get('/problems/{id}',function($id){
-  $problems = DB::table('problems')->find($id);   
-//  dd($problems);
+  if (Auth::guest())
+  {
+    // TO LEARN: print error. wait 3 sec. then redirect.
+    return "Bummer! You need to log in, dude.";
+  }
+  //TODO: proper error handling here
+  $problems = DB::table('problems')->find($id);
   return View::make('problempage', compact('problems'));
 });
 
