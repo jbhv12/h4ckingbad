@@ -13,15 +13,23 @@ class CreateProblemsTable extends Migration
      */
     public function up()
     {
+
+    //  hintArray = [pointstodeduct...] sorted by pointstodeduct
+
       Schema::create('problems', function (Blueprint $table) {
           $table->increments('id');
           $table->string('name');     //added this
-          $table->integer('categoryid');
+          $table->integer('categoryid');  //multiple values???
           $table->text('abstract');
-          $table->string('minortHint');
-          $table->string('majorHint');
+
+          // $table->string('minortHint');
+          // $table->string('majorHint');
+          // $table->integer('minortHintCost');  //added this
+
+          $table->string('hintArray');    //use text maybe?
+
           $table->string('flag');
-          $table->integer('points');    //multiple values???
+          $table->integer('points');
           $table->string('problemPageUrl');
           $table->string('downloadableFilePath');
           //$table->rememberToken();

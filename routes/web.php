@@ -17,7 +17,24 @@ Route::get('/', function () {
 Auth::routes();
 
 //TODO: create controller files for all routes
+Route::get('/start',function(){
+  $id = Auth::id();
+  $res = DB::table('userStats')->where('id', $id)->get();
+  if(!count($res)){
+    //start timer
+    //make entry
+    DB::table('userStats')->insert(
+      ['id' => $id, 'name' => 'leader', 'member_name' => 'member2']
+    );
+    //redirect to problems
+    return redirect('/problems');
+  }else {
+    echo "ur timer already started bru";
+    return redirect('/problems');
+  }
 
+
+});
 Route::get('/problems',function(){
   if (Auth::guest())
   {
@@ -31,8 +48,9 @@ Route::get('/problems',function(){
 Route::get('/problems/{id}',function($id){
   if (Auth::guest())
   {
-    // TO LEARN: print error. wait 3 sec. then redirect.
-    return "Bummer! You need to log in, dude.";
+    echo "Please Log In First. Redirecting in 3 sec...";
+    echo "<script>setTimeout(\"location.href = '/login';\",3000);</script>";
+    return;
   }
   //TODO: proper error handling here
   $problems = DB::table('problems')->find($id);

@@ -76,6 +76,7 @@ class RegisterController extends Controller
      */
     protected function showRegistrationForm()
     {
+      //  echo "f";
         return redirect()->to('login')->with('warning', 'Registration is disabled.');
     }
 }

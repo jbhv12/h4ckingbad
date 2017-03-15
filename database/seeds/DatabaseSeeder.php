@@ -12,21 +12,38 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
       $this->call('UserTableSeeder');
+      $this->call('ProblemsTableSeeder');
       //   $this->call(UsersTableSeeder::class);
     }
 }
 class UserTableSeeder extends Seeder
 {
-
 public function run()
 {
     DB::table('users')->delete();
     User::create(array(
         'name'     => 'test',
-      //  'username' => 'asdf',
         'email'    => 'test@test.com',
         'password' => Hash::make('test'),
     ));
 }
-
+}
+class ProblemsTableSeeder extends Seeder
+{
+public function run()
+{
+  $sampleHintArray = array(10,20);
+    DB::table('problems')->delete();
+    DB::table('problems')->insert([
+        'id'     => 1,
+        'name'    => 'pname',
+        'categoryid' => 1,
+        'abstract' => 'varta',
+        'hintArray' => serialize($sampleHintArray),
+        'flag' => 'xxx',
+        'points' => 100,
+        'problemPageUrl' => '/',
+        'downloadableFilePath' => '/tmp'
+    ]);
+}
 }
