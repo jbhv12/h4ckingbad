@@ -26,6 +26,11 @@ public function run()
         'email'    => 'test@test.com',
         'password' => Hash::make('test'),
     ));
+    User::create(array(
+        'name'     => 'a',
+        'email'    => 'a@a.a',
+        'password' => Hash::make('a'),
+    ));
 }
 }
 class ProblemsTableSeeder extends Seeder
