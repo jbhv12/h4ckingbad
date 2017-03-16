@@ -53,16 +53,19 @@ class ProblemController extends Controller
 
         //check if any hints taken
         $hintcost = 0;
-        $hintsTakenArray = unserialize(DB::table('userStats')->where('id', $userId)->value('hintArray'));
+        $hintsTakenArray = unserialize(DB::table('userStats')->where('id', $userId)->value('hints_taken'));
+        //error :(  
         foreach ($hintsTakenArray as $item) {
-          if($item[0]==$probId) $hintcost = $item[1];
+          if($item[0]==$probId) {
+            $hintcost = $item[1];
+          }
         }
 
         $currentScore = DB::table('userStats')->where('id', $userId)->value('score');
-        $problemPoints = = DB::table('problems')->where('id', $probId)->value('points');
+        $problemPoints = DB::table('problems')->where('id', $probId)->value('points');
 
         DB::table('userStats')->where('id', $userId)->update(['problems_solved' => serialize($userSolvedProblemArray)]);
-        DB::table('userStats')->where('id', $userId)->update(['score' => $currentScore + $problemPoints - $hintcost);
+        DB::table('userStats')->where('id', $userId)->update(['score' => $currentScore + $problemPoints - $hintcost]);
       }else {
         echo "khotu h topaa";
       }
