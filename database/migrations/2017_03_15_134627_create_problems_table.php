@@ -32,7 +32,6 @@ class CreateProblemsTable extends Migration
           $table->integer('points');
           $table->string('problemPageUrl');
           $table->string('downloadableFilePath');
-          //$table->rememberToken();
       });
     }
 
