@@ -33,11 +33,12 @@ class ProblemsTableSeeder extends Seeder
 public function run()
 {
   $sampleHintArray = array(10,20);
+  $sampleCategoryArray = array(1,2);
     DB::table('problems')->delete();
     DB::table('problems')->insert([
         'id'     => 1,
         'name'    => 'pname',
-        'categoryid' => 1,
+        'categoryid' => serialize($sampleCategoryArray),
         'abstract' => 'varta',
         'hintArray' => serialize($sampleHintArray),
         'flag' => 'xxx',

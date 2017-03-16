@@ -34,7 +34,17 @@ class ProblemController extends Controller
     return View::make('categorieslist', compact('categories'));
   }
   public function showCategoriesPage($id){
-    $problems = DB::table('problems')->where('categoryid', $id)->get();
+    $problemsArray = DB::table('problems')->get();
+    $problems = array();
+    foreach ($problemsArray as $problem) {
+      $catarry = unserialize($problem->categoryid);
+      // echo gettype($id);
+      foreach ($catarry as $i) {
+        if($i==(int)$id){
+          array_push($problems,$problem);
+        }
+      }
+    }
     return View::make('problemlist', compact('problems'));
   }
   public function showProblemPage($id)
