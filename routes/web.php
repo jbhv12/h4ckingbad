@@ -18,9 +18,12 @@ Auth::routes();
 
 //TODO: create controller files for all routes
 
-Route::post('contact',
-  ['as' => 'contact_store', 'uses' => 'ProblemController@store']);
 
+
+Route::get('categories',
+  ['as' => 'problems', 'uses' => 'ProblemController@showCategories']);
+Route::get('categories/{id}',
+  ['as' => 'problems', 'uses' => 'ProblemController@showCategoriesPage']);
 Route::get('problems',
   ['as' => 'problems', 'uses' => 'ProblemController@showProblems']);
 Route::get('problems/{id}',

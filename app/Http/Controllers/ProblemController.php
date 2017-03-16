@@ -23,7 +23,20 @@ class ProblemController extends Controller
     $problems = DB::table('problems')->get();     //add condition. return problems appropriate to round.
     return View::make('problemlist', compact('problems'));
   }
-
+  public function showCategories()
+  {
+    if (Auth::guest())
+    {
+       return redirect('/login');
+    //  return "Bummer! You need to log in, dude.";
+    }
+    $categories = DB::table('categories')->get();
+    return View::make('categorieslist', compact('categories'));
+  }
+  public function showCategoriesPage($id){
+    $problems = DB::table('problems')->where('categoryid', $id)->get();
+    return View::make('problemlist', compact('problems'));
+  }
   public function showProblemPage($id)
   {
     if (Auth::guest())
@@ -54,7 +67,8 @@ class ProblemController extends Controller
         //check if any hints taken
         $hintcost = 0;
         $hintsTakenArray = unserialize(DB::table('userStats')->where('id', $userId)->value('hints_taken'));
-        //error :(  
+        //error :(
+        //optimization:remove entry
         foreach ($hintsTakenArray as $item) {
           if($item[0]==$probId) {
             $hintcost = $item[1];

@@ -13,7 +13,7 @@ class DatabaseSeeder extends Seeder
     {
       $this->call('UserTableSeeder');
       $this->call('ProblemsTableSeeder');
-      //   $this->call(UsersTableSeeder::class);
+      $this->call('CategoriesTableSeeder');
     }
 }
 class UserTableSeeder extends Seeder
@@ -44,6 +44,17 @@ public function run()
         'points' => 100,
         'problemPageUrl' => '/',
         'downloadableFilePath' => '/tmp'
+    ]);
+}
+}
+class CategoriesTableSeeder extends Seeder
+{
+public function run()
+{
+    DB::table('categories')->delete();
+    DB::table('categories')->insert([
+        'id'     => 1,
+        'name'    => 'web',
     ]);
 }
 }
