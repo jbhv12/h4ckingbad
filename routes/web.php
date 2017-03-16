@@ -53,7 +53,7 @@ Route::get('/start',function(){
       //   //break
       // }
 
-      $timelimitinsec = 10;     //TODO: fetch limit from rounds table.
+      $timelimitinsec = 10000;     //TODO: fetch limit from rounds table.
       $st = DB::table('userStats')->where('id', $id)->value('start_time');
       $et = $st + $timelimitinsec;
       if($st==null){echo "ur time is over";}
