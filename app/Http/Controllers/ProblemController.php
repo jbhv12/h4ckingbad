@@ -91,13 +91,19 @@ class ProblemController extends Controller
         //check if any hints taken
         $hintcost = 0;
         $hintsTakenArray = unserialize(DB::table('userStats')->where('id', $userId)->value('hints_taken'));
-        //error :(
-        //optimization:remove entry
-        // foreach ($hintsTakenArray as $item) {
-        //   if($item[0]==$probId) {
-        //     $hintcost = $item[1];
-        //   }
-        // }
+
+        $index=0;
+        foreach ($hintsTakenArray as $item) {
+          if(!empty($item)){
+            if($item[0]==$probId) {
+              for ($i = 1; $i < count($array); $i++) {
+                  $hintcost+=$item[i];
+              }
+              unset($hintsTakenArray[$index]);
+            }
+          }
+          $index++;
+        }
 
         //add points
         $currentScore = DB::table('userStats')->where('id', $userId)->value('score');
