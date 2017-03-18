@@ -20,7 +20,7 @@ class ProblemController extends Controller
        return redirect('/login');
     //  return "Bummer! You need to log in, dude.";
     }
-    $problems = DB::table('problems')->get();     //add condition. return problems appropriate to round.
+    $problems = \App\Problem::all();	//add condition. show app. probs for round
     return View::make('problemlist', compact('problems'));
   }
   public function showCategories()
@@ -34,7 +34,7 @@ class ProblemController extends Controller
     return View::make('categorieslist', compact('categories'));
   }
   public function showCategoriesPage($id){
-    $problemsArray = DB::table('problems')->get();
+    $problemsArray =\App\Problem::all();
     $problems = array();
     foreach ($problemsArray as $problem) {
       $catarry = unserialize($problem->categoryid);
@@ -59,30 +59,36 @@ class ProblemController extends Controller
     $problems = DB::table('problems')->find($id);
     return View::make('problempage', compact('problems'));
   }
-  public function updateRank($userId)
-  {
-    $userScore = DB::table('userStats')->where('id', $userId)->value('score');
-    $lowers = DB::table('userStats')->where('score', '<', $userScore)->orderBy('score', 'desc')->get();
+//  public function updateRank($userId)
+//  {
+//    $userScore = DB::table('userStats')->where('id', $userId)->value('score');
+//    $lowers = DB::table('userStats')->where('score', '<', $userScore)->orderBy('score', 'desc')->get();
+//
+//    $newRank = $lowers[0]->rank + 1;
+//
+//    foreach ($lowers as $lower) {
+//      $rank = $lower->rank;
+//      if($rank != 0){
+//        DB::table('userStats')->where('id', $lower->id)->update(['rank' => $rank + 1]);
+//      }
+//    }
+//  }
 
-    $newRank = $lowers[0]->rank + 1;
-
-    foreach ($lowers as $lower) {
-      $rank = $lower->rank;
-      if($rank != 0){
-        DB::table('userStats')->where('id', $lower->id)->update(['rank' => $rank + 1]);
-      }
-    }
+  public function showHint($pid,$hid){
+	  //find n return hint
   }
-  public function evaluate(Request $req)
+  public function evaluate(Request $req, $id)
   {
     $enterdFlag = $req->input('flag');
     $probId = $req->input('pid');
+    $probId = $id;
     $userId = Auth::id();
     //if user already solved prob
     $userSolvedProblemArray = unserialize(DB::table('userStats')->where('id', $userId)->value('problems_solved'));
     if( in_array( $probId ,$userSolvedProblemArray ) )
     {
-      echo "thai gyu h.";
+     // echo "thai gyu h.";
+	return back();  //also print msg..
     }else{
       $correctFlag = DB::table('problems')->where('id', $probId)->value('flag');
       if($enterdFlag == $correctFlag){

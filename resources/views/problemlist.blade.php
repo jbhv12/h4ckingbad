@@ -1,10 +1,13 @@
 TODO:do some ui. display more info abt problem
-
-<ul>
+@extends('layouts.app')
+<div>
+@section('content')
   @foreach ($problems as $problem)
-    <li>
+  <div class="container">
       <a href="/problems/{{$problem->id}}">
-      {{$problem -> name}}
-    </li>
+      {{$problem -> name}} </a>
+	{{$problem -> points}}
+  </div>
   @endforeach
-</ul>
+</div>
+@endsection
