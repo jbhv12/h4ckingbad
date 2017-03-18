@@ -23,7 +23,30 @@ class ProblemController extends Controller
     $problems = DB::table('problems')->get();     //add condition. return problems appropriate to round.
     return View::make('problemlist', compact('problems'));
   }
-
+  public function showCategories()
+  {
+    if (Auth::guest())
+    {
+       return redirect('/login');
+    //  return "Bummer! You need to log in, dude.";
+    }
+    $categories = DB::table('categories')->get();
+    return View::make('categorieslist', compact('categories'));
+  }
+  public function showCategoriesPage($id){
+    $problemsArray = DB::table('problems')->get();
+    $problems = array();
+    foreach ($problemsArray as $problem) {
+      $catarry = unserialize($problem->categoryid);
+      // echo gettype($id);
+      foreach ($catarry as $i) {
+        if($i==(int)$id){
+          array_push($problems,$problem);
+        }
+      }
+    }
+    return View::make('problemlist', compact('problems'));
+  }
   public function showProblemPage($id)
   {
     if (Auth::guest())
@@ -35,6 +58,20 @@ class ProblemController extends Controller
     //TODO: proper error handling here
     $problems = DB::table('problems')->find($id);
     return View::make('problempage', compact('problems'));
+  }
+  public function updateRank($userId)
+  {
+    $userScore = DB::table('userStats')->where('id', $userId)->value('score');
+    $lowers = DB::table('userStats')->where('score', '<', $userScore)->orderBy('score', 'desc')->get();
+
+    $newRank = $lowers[0]->rank + 1;
+
+    foreach ($lowers as $lower) {
+      $rank = $lower->rank;
+      if($rank != 0){
+        DB::table('userStats')->where('id', $lower->id)->update(['rank' => $rank + 1]);
+      }
+    }
   }
   public function evaluate(Request $req)
   {
@@ -54,18 +91,43 @@ class ProblemController extends Controller
         //check if any hints taken
         $hintcost = 0;
         $hintsTakenArray = unserialize(DB::table('userStats')->where('id', $userId)->value('hints_taken'));
-        //error :(  
+
+        $index=0;
         foreach ($hintsTakenArray as $item) {
-          if($item[0]==$probId) {
-            $hintcost = $item[1];
+          if(!empty($item)){
+            if($item[0]==$probId) {
+              for ($i = 1; $i < count($array); $i++) {
+                  $hintcost+=$item[i];
+              }
+              unset($hintsTakenArray[$index]);
+            }
           }
+          $index++;
         }
 
+        //add points
         $currentScore = DB::table('userStats')->where('id', $userId)->value('score');
         $problemPoints = DB::table('problems')->where('id', $probId)->value('points');
 
         DB::table('userStats')->where('id', $userId)->update(['problems_solved' => serialize($userSolvedProblemArray)]);
         DB::table('userStats')->where('id', $userId)->update(['score' => $currentScore + $problemPoints - $hintcost]);
+
+        //update rank
+        $userScore = DB::table('userStats')->where('id', $userId)->value('score');
+        $lowers = DB::table('userStats')->where('score', '<', $userScore)->orderBy('score', 'desc')->get();
+
+        if(array_key_exists(0,$lowers)){
+          $newRank = $lowers[0]->rank + 1;
+          DB::table('userStats')->where('id', $userId)->update(['rank' => $newRank]);
+        }
+        foreach ($lowers as $lower) {
+          echo $lower->id;
+          $rank = $lower->rank;
+          if($rank != 0){
+            DB::table('userStats')->where('id', $lower->id)->update(['rank' => $rank + 1]);
+          }
+        }
+
       }else {
         echo "khotu h topaa";
       }
@@ -82,4 +144,6 @@ class ProblemController extends Controller
     $name = $request->input('name');
     echo $name;
   }
+
+
 }

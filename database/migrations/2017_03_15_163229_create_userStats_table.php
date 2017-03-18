@@ -18,7 +18,7 @@ class CreateUserStatsTable extends Migration
           $table->string('name')->nullable();
           $table->string('member_name')->nullable();  //add-on features
           $table->string('problems_solved');  //problems_solved=[prob_id...]
-          $table->string('hints_taken');     // hints_taken = [(prob_id,totaldeductedpoints)..]
+          $table->string('hints_taken');     // hints_taken = [(prob_id,hint1cost,hint2cost,..)..]
 
           $table->integer('score');
       //    $table->integer('no_of_prob_solved');

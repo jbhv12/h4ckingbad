@@ -19,7 +19,7 @@ class CreateProblemsTable extends Migration
       Schema::create('problems', function (Blueprint $table) {
           $table->increments('id');
           $table->string('name');     //added this
-          $table->integer('categoryid');  //multiple values???
+          $table->text('categoryid');  //multiple values???
           $table->text('abstract');
 
           // $table->string('minortHint');

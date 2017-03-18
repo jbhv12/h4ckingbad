@@ -13,7 +13,7 @@ class DatabaseSeeder extends Seeder
     {
       $this->call('UserTableSeeder');
       $this->call('ProblemsTableSeeder');
-      //   $this->call(UsersTableSeeder::class);
+      $this->call('CategoriesTableSeeder');
     }
 }
 class UserTableSeeder extends Seeder
@@ -26,6 +26,11 @@ public function run()
         'email'    => 'test@test.com',
         'password' => Hash::make('test'),
     ));
+    User::create(array(
+        'name'     => 'a',
+        'email'    => 'a@a.a',
+        'password' => Hash::make('a'),
+    ));
 }
 }
 class ProblemsTableSeeder extends Seeder
@@ -33,17 +38,29 @@ class ProblemsTableSeeder extends Seeder
 public function run()
 {
   $sampleHintArray = array(10,20);
+  $sampleCategoryArray = array(1,2);
     DB::table('problems')->delete();
     DB::table('problems')->insert([
         'id'     => 1,
         'name'    => 'pname',
-        'categoryid' => 1,
+        'categoryid' => serialize($sampleCategoryArray),
         'abstract' => 'varta',
         'hintArray' => serialize($sampleHintArray),
         'flag' => 'xxx',
         'points' => 100,
         'problemPageUrl' => '/',
         'downloadableFilePath' => '/tmp'
+    ]);
+}
+}
+class CategoriesTableSeeder extends Seeder
+{
+public function run()
+{
+    DB::table('categories')->delete();
+    DB::table('categories')->insert([
+        'id'     => 1,
+        'name'    => 'web',
     ]);
 }
 }
