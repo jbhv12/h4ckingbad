@@ -28,7 +28,12 @@ Route::get('problems',
   ['as' => 'problems', 'uses' => 'ProblemController@showProblems']);
 Route::get('problems/{id}',
   ['as' => 'problems', 'uses' => 'ProblemController@showProblemPage']);
-Route::post('eval',
+Route::get('problems/{pid}/h{hid}',
+  ['as' => 'problems', 'uses' => 'ProblemController@showHint']);
+//Route::post('eval',
+ // ['as' => 'eval', 'uses' => 'ProblemController@evaluate']);
+
+Route::post('problems/{id}',
   ['as' => 'eval', 'uses' => 'ProblemController@evaluate']);
 
 Route::get('/start',function(){

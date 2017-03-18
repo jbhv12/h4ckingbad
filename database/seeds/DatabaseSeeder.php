@@ -37,7 +37,7 @@ class ProblemsTableSeeder extends Seeder
 {
 public function run()
 {
-  $sampleHintArray = array(10,20);
+  $sampleHintArray = array(array(10,"hint1cost10"),array(20,"hint2"));
   $sampleCategoryArray = array(1,2);
     DB::table('problems')->delete();
     DB::table('problems')->insert([
