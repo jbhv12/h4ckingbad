@@ -1,6 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
+//Title.Tagline
+start button:
+
+<a href="/start"> START BUTTON </a>
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">

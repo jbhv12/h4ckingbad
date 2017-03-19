@@ -11,9 +11,9 @@
 |
 */
 
-Route::get('/', function () {
-    return 'welcome';
-});
+//Route::get('/', function () {
+//    return 'welcome';
+//});
 Auth::routes();
 
 //TODO: create controller files for all routes
@@ -76,4 +76,4 @@ Route::get('/start',function(){
     }
 });
 
-Route::get('/home', 'HomeController@index');
+Route::get('/', 'HomeController@index');

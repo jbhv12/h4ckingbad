@@ -2,8 +2,10 @@
 <body>
   <ul>
       <li> {{$problems -> abstract}} </li>
-      <li> {{unserialize($problems -> hintArray)[0][0]}} </li>
-      <li> {{unserialize($problems -> hintArray)[1][1]}} </li>
+	@foreach (unserialize($problems->hintArray) as $hint)
+		hint cost:	<li> {{$hint[0]}} </li>
+		<a href="../"> f </a>
+	@endforeach
   </ul>
 
 

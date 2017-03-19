@@ -88,7 +88,7 @@ class ProblemController extends Controller
     if( in_array( $probId ,$userSolvedProblemArray ) )
     {
      // echo "thai gyu h.";
-	return back();  //also print msg..
+	return back();  //also print msg.. //Maybe use default $errors
     }else{
       $correctFlag = DB::table('problems')->where('id', $probId)->value('flag');
       if($enterdFlag == $correctFlag){
