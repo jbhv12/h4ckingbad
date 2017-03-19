@@ -27,7 +27,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
@@ -74,9 +74,9 @@ class RegisterController extends Controller
      *
      * Overriding method from RegisterUsers Class to disable Registartion by User Directly.
      */
-    protected function showRegistrationForm()
-    {
-      //  echo "f";
-        return redirect()->to('login')->with('warning', 'Registration is disabled.');
-    }
+//    protected function showRegistrationForm()
+//    {
+//      //  echo "f";
+//        return redirect()->to('login')->with('warning', 'Registration is disabled.');
+//    }
 }
