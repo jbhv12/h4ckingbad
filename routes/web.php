@@ -24,56 +24,39 @@ Route::get('categories',
   ['as' => 'problems', 'uses' => 'ProblemController@showCategories']);
 Route::get('categories/{id}',
   ['as' => 'problems', 'uses' => 'ProblemController@showCategoriesPage']);
-Route::get('problems',
-  ['as' => 'problems', 'uses' => 'ProblemController@showProblems']);
 Route::get('problems/{id}',
   ['as' => 'problems', 'uses' => 'ProblemController@showProblemPage']);
 Route::get('problems/{pid}/h{hid}',
   ['as' => 'problems', 'uses' => 'ProblemController@showHint']);
-//Route::post('eval',
- // ['as' => 'eval', 'uses' => 'ProblemController@evaluate']);
-
 Route::post('problems/{id}',
   ['as' => 'eval', 'uses' => 'ProblemController@evaluate']);
 
-Route::get('/start',function(){
+Route::get('/c{cid}/problems',
+  ['as' => 'problems', 'uses' => 'ProblemController@showProblems']);
+
+
+Route::get('/c{cid}/start',function($cid){
   $id = Auth::id();
-  $res = DB::table('userStats')->where('id', $id)->get();
-  if(!count($res)){
-    DB::table('userStats')->insert(
-      ['id' => $id,
-       'name' => 'leader',
-       'member_name' => 'member2',
-       'problems_solved' => serialize(array()),
-       'hints_taken' => serialize(array(array())),
-       'score' => 0,
-       'rank' => 0,
-       'start_time' => time(),
-       'cur_lvl' => 1]
-    );
-    return redirect('/problems');
+  if($cid==0){
+	 $userStats = App\UserStats::find($id);
+	 $userStats->cc = 0;
+	 $userStats->save();
+	 return;
+  }
+  $contest = App\Contest::find($cid);
+  if(time()>=$contest->start_time){
+	  $userStats = App\UserStats::find($id);
+	  if($userStats->cc != $cid){
+		$userStats->st = time();
+		if($contest->end_time < time()){$userStats->st=0;}  //unlimited time once contest is finished
+		$userStats->cc = $cid;
+		$userStats->save();
+	  }else{
+		  echo "already started";
+	  }
   }else{
-
-      //TODO: hardcodet this block
-
-      // if(startime==0 and curtime>=round2time){
-      //   //update db startime = CURRENT_TIMESTAMP
-      //   //break
-      // }
-
-      $timelimitinsec = 10000;     //TODO: fetch limit from rounds table.
-      $st = DB::table('userStats')->where('id', $id)->value('start_time');
-      $et = $st + $timelimitinsec;
-      if($st==null){echo "ur time is over";}
-      else if(time()>$et){
-      echo "ur time is over";
-      DB::table('userStats')->where('id', $id)->update(['start_time' => null]);
-      }
-    else{
-      echo "ur timer already started bru";
-      return redirect('/problems');
-     }
-    }
+	  echo "vah h hju";
+  }
 });
 
 Route::get('/', 'HomeController@index');

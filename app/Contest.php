@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Contest extends Model
 {
 	public function problems(){
-		return this->hasMany('App\Problem');
+		return $this->hasMany('App\Problem');
 	}
     //
 }
