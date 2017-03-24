@@ -1,13 +1,20 @@
 <html>
 <body>
+	{{$problems -> name}}
+<br>
+{{$problems -> abstract}}
   <ul>
-      <li> {{$problems -> abstract}} </li>
+
 	@foreach (unserialize($problems->hintArray) as $hint)
-		hint cost:	<li> {{$hint[0]}} </li>
-		<a href="../"> f </a>
-	@endforeach
+	<li>
+		hint cost:	 {{$hint[0]}}
+hintlink
+			@endforeach
+			</li>
   </ul>
 
+<?php use App\Http\Controllers\ProblemController;
+echo ProblemController::showHint($problems->id,1); ?>
 
 	<form method="POST" action="/problems/{{$problems->id}}">
 		{{ csrf_field() }}

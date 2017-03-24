@@ -44,19 +44,34 @@ Route::get('/c{cid}/start',function($cid){
 	 return;
   }
   $contest = App\Contest::find($cid);
-  if(time()>=$contest->start_time){
+  if(time()>$contest->start_time and time()<$contest->end_time){
 	  $userStats = App\UserStats::find($id);
 	  if($userStats->cc != $cid){
 		$userStats->st = time();
-		if($contest->end_time < time()){$userStats->st=0;}  //unlimited time once contest is finished
 		$userStats->cc = $cid;
 		$userStats->save();
 	  }else{
 		  echo "already started";
 	  }
   }else{
-	  echo "vah h hju";
+	  echo "vah h hju orrr pati gyu h";
   }
 });
 
 Route::get('/', 'HomeController@index');
+
+Route::get('/about', function(){
+	echo "static page here";
+});
+Route::get('/instructions' ,function(){
+	echo "one more statc page";
+});
+Route::get('/scoreboard', function(){
+	$all = DB::table('userStats')->where('rank','!=',0)->orderBy('rank', 'asc')->get();
+	return View('scoreboard')->with('all',$all);
+	echo $all[0]->id;
+	echo count($all);
+});
+
+//ht=[[pid,hid]..]
+//ha=[[cost,txt],..]

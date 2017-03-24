@@ -29,7 +29,6 @@ class ProblemController extends Controller
 		$userStats = \App\UserStats::find($uid);
 		$cid = $userStats->cc;
 		$problemsArray = \App\Problem::where('contest_id',$cid)->get();	 //ADD: where : or problem is open
-		//	dd($problemsArray);
 		$problems = array();
 		foreach ($problemsArray as $problem) {
 			$catarry = unserialize($problem->categoryid);
@@ -49,28 +48,42 @@ class ProblemController extends Controller
 		$cid = $userStats->cc;
 		$problems = DB::table('problems')->find($id);
 		if($problems->contest_id == $cid){  			//or problem is open
-			return View::make('problempage', compact('problems'));
+			return View::make('problempage', compact(['problems']));
 		}else{
 			echo "this prob doesnt blong to u";
 		}
 	}
-	//  public function updateRank($userId)
-	//  {
-	//    $userScore = DB::table('userStats')->where('id', $userId)->value('score');
-	//    $lowers = DB::table('userStats')->where('score', '<', $userScore)->orderBy('score', 'desc')->get();
-	//
-	//    $newRank = $lowers[0]->rank + 1;
-	//
-	//    foreach ($lowers as $lower) {
-	//      $rank = $lower->rank;
-	//      if($rank != 0){
-	//        DB::table('userStats')->where('id', $lower->id)->update(['rank' => $rank + 1]);
-	//      }
-	//    }
-	//  }
 
-	public function showHint($pid,$hid){
-		//find n return hint
+	public static function showHint($pid,$hid){
+		$uid = Auth::id();
+		$userStats =  \App\UserStats::find($uid);
+		$hintstaken = unserialize($userStats->hints_taken);
+		$flag=-1;
+		//check if hint already taken
+		for($j=0; $j<count($hintstaken); $j++){
+			if($hintstaken[$j][0] == $pid){
+				$flag = $j;
+				for($i=1; $i<count($hintstaken[$j]); $i++){
+					if($hid == $hintstaken[$j][$i]){
+						$prob = DB::table('problems')->find($pid);
+						$allhints = unserialize($prob->hintArray);
+						return $allhints[$hid][1];
+					}
+				}
+			}
+		}
+		//if not..
+		if($flag==-1){
+			array_push($hintstaken,array($pid,$hid));
+			DB::table('userStats')->where('id', $uid)->update(['hints_taken' => serialize($hintstaken)]);
+
+		}else{
+			array_push($hintstaken[$flag],$hid);
+			DB::table('userStats')->where('id', $uid)->update(['hints_taken' => serialize($hintstaken)]);
+		}
+		$prob = DB::table('problems')->find($pid);
+		$allhints = unserialize($prob->hintArray);
+		return $allhints[$hid][1];
 	}
 	public function evaluate(Request $req, $id)
 	{
@@ -82,7 +95,7 @@ class ProblemController extends Controller
 		$userSolvedProblemArray = unserialize(DB::table('userStats')->where('id', $userId)->value('problems_solved'));
 		if( in_array( $probId ,$userSolvedProblemArray ) )
 		{
-			// echo "thai gyu h.";
+			echo "thai gyu h.";
 			return back();  //also print msg.. //Maybe use default $errors
 		}else{
 			$correctFlag = DB::table('problems')->where('id', $probId)->value('flag');
@@ -92,15 +105,16 @@ class ProblemController extends Controller
 				//check if any hints taken
 				$hintcost = 0;
 				$hintsTakenArray = unserialize(DB::table('userStats')->where('id', $userId)->value('hints_taken'));
+				$ha = unserialize(DB::table('problems')->where('id', $probId)->value('hintArray'));
 
 				$index=0;
 				foreach ($hintsTakenArray as $item) {
 					if(!empty($item)){
 						if($item[0]==$probId) {
-							for ($i = 1; $i < count($array); $i++) {
-								$hintcost+=$item[i];
+							for ($i = 1; $i < count($item); $i++) {
+								$hintcost+=$ha[$item[$i]][0];
 							}
-							unset($hintsTakenArray[$index]);
+							//unset($hintsTakenArray[$index]);
 						}
 					}
 					$index++;
@@ -117,12 +131,12 @@ class ProblemController extends Controller
 				$userScore = DB::table('userStats')->where('id', $userId)->value('score');
 				$lowers = DB::table('userStats')->where('score', '<', $userScore)->orderBy('score', 'desc')->get();
 
-				if(array_key_exists(0,$lowers)){
+				if(count($lowers)>0){
 					$newRank = $lowers[0]->rank + 1;
 					DB::table('userStats')->where('id', $userId)->update(['rank' => $newRank]);
 				}
 				foreach ($lowers as $lower) {
-					echo $lower->id;
+					#echo $lower->id;
 					$rank = $lower->rank;
 					if($rank != 0){
 						DB::table('userStats')->where('id', $lower->id)->update(['rank' => $rank + 1]);
@@ -133,11 +147,6 @@ class ProblemController extends Controller
 				echo "khotu h topaa";
 			}
 		}
-		// echo $probId;
-		// echo $enterdFlag;
-		// foreach($userSolvedProblemArray as $value){
-		// echo $value . "<br>";
-		// }
 	}
 
 }
