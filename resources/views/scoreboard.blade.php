@@ -1,22 +1,7 @@
 <ul>
+@php ($iii = 0)
 @foreach ($all as $a)
-<li>{{$a->id}} ---> {{$a->rank}} ---
-
-use App\Http\Controllers\ProblemController;
-echo ProblemController::showHint($problems->id,1);
-
-</li>
+<li>index={{$iii}} id={{$a->id}} email={{$email[$iii]}}---> {{$a->rank}}</li>
+@php ($iii = $iii+1)
 @endforeach
 </ul>
-
-//add indexing.also write func. that maps id to email id.
-
-<?php
-use App\Http\Controllers\ProblemController;
-
-echo "<ul>";
-	foreach($all as $a){
-		echo "<li> $a->id </li>";
-	}
-echo </ul>
-?>
