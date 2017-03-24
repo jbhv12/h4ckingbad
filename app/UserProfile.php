@@ -4,6 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+use App\User;
+
 class UserProfile extends Model
 {
     /**
@@ -29,4 +31,12 @@ class UserProfile extends Model
         'secondmembermobile',
     ];
 
+    /**
+     * Get the User record that own this userprofile.
+     * One to One Relationship , this table has foreign key
+     */
+    public function User()
+    {
+        return $this->belongsTo('App\User', 'user_id', 'id');
+    }
 }
