@@ -11,9 +11,9 @@
 |
 */
 
-Route::get('/', function () {
-    return 'welcome';
-});
+//Route::get('/', function () {
+//    return 'welcome';
+//});
 Auth::routes();
 
 //TODO: create controller files for all routes
@@ -24,56 +24,63 @@ Route::get('categories',
   ['as' => 'problems', 'uses' => 'ProblemController@showCategories']);
 Route::get('categories/{id}',
   ['as' => 'problems', 'uses' => 'ProblemController@showCategoriesPage']);
-Route::get('problems',
-  ['as' => 'problems', 'uses' => 'ProblemController@showProblems']);
 Route::get('problems/{id}',
   ['as' => 'problems', 'uses' => 'ProblemController@showProblemPage']);
 Route::get('problems/{pid}/h{hid}',
   ['as' => 'problems', 'uses' => 'ProblemController@showHint']);
-//Route::post('eval',
- // ['as' => 'eval', 'uses' => 'ProblemController@evaluate']);
-
 Route::post('problems/{id}',
   ['as' => 'eval', 'uses' => 'ProblemController@evaluate']);
 
-Route::get('/start',function(){
+Route::get('/c{cid}/problems',
+  ['as' => 'problems', 'uses' => 'ProblemController@showProblems']);
+
+
+Route::get('/c{cid}/start',function($cid){
   $id = Auth::id();
-  $res = DB::table('userStats')->where('id', $id)->get();
-  if(!count($res)){
-    DB::table('userStats')->insert(
-      ['id' => $id,
-       'name' => 'leader',
-       'member_name' => 'member2',
-       'problems_solved' => serialize(array()),
-       'hints_taken' => serialize(array(array())),
-       'score' => 0,
-       'rank' => 0,
-       'start_time' => time(),
-       'cur_lvl' => 1]
-    );
-    return redirect('/problems');
+  if($cid==0){
+	 $userStats = App\UserStats::find($id);
+	 $userStats->cc = 0;
+	 $userStats->save();
+	 return;
+  }
+  $contest = App\Contest::find($cid);
+  if(time()>$contest->start_time and time()<$contest->end_time){
+	  $userStats = App\UserStats::find($id);
+	  if($userStats->cc != $cid){
+		$userStats->st = time();
+		$userStats->cc = $cid;
+		$userStats->save();
+	  }else{
+		  echo "already started";
+		  return redirect('/c'.$cid.'/problems');
+	  }
   }else{
-
-      //TODO: hardcodet this block
-
-      // if(startime==0 and curtime>=round2time){
-      //   //update db startime = CURRENT_TIMESTAMP
-      //   //break
-      // }
-
-      $timelimitinsec = 10000;     //TODO: fetch limit from rounds table.
-      $st = DB::table('userStats')->where('id', $id)->value('start_time');
-      $et = $st + $timelimitinsec;
-      if($st==null){echo "ur time is over";}
-      else if(time()>$et){
-      echo "ur time is over";
-      DB::table('userStats')->where('id', $id)->update(['start_time' => null]);
-      }
-    else{
-      echo "ur timer already started bru";
-      return redirect('/problems');
-     }
-    }
+	  echo "vah h hju orrr pati gyu h";
+  }
 });
 
-Route::get('/home', 'HomeController@index');
+Route::get('/', 'HomeController@index');
+
+Route::get('/about', function(){
+	echo "static page here";
+});
+Route::get('/instructions' ,function(){
+	echo "one more statc page";
+});
+function idtoemail($a){
+	$user = \App\User::find($a->id);
+	return $user->email;
+}
+Route::get('/scoreboard', function(){
+	$all = DB::table('userStats')->where('rank','!=',0)->orderBy('rank', 'asc')->get();
+	$email = array();
+	foreach($all as $a){
+		array_push($email,idtoemail($a));
+	}
+	return View('scoreboard')->with('all',$all)->with('email',$email);
+	echo $all[0]->id;
+	echo count($all);
+});
+
+//ht=[[pid,hid]..]
+//ha=[[cost,txt],..]

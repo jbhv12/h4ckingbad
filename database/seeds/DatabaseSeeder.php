@@ -14,6 +14,7 @@ class DatabaseSeeder extends Seeder
       $this->call('UserTableSeeder');
       $this->call('ProblemsTableSeeder');
       $this->call('CategoriesTableSeeder');
+      $this->call('ContestsTableSeeder');
     }
 }
 class UserTableSeeder extends Seeder
@@ -61,6 +62,16 @@ public function run()
     DB::table('categories')->insert([
         'id'     => 1,
         'name'    => 'web',
+    ]);
+}
+}
+class ContestsTableSeeder extends Seeder
+{
+public function run()
+{
+    DB::table('contests')->delete();
+    DB::table('contests')->insert([
+        'id'     => 1,
     ]);
 }
 }

@@ -15,16 +15,13 @@ class CreateUserStatsTable extends Migration
     {
       Schema::create('userStats', function (Blueprint $table) {
           $table->increments('id');
-          $table->string('name')->nullable();
-          $table->string('member_name')->nullable();  //add-on features
           $table->string('problems_solved');  //problems_solved=[prob_id...]
           $table->string('hints_taken');     // hints_taken = [(prob_id,hint1cost,hint2cost,..)..]
-
           $table->integer('score');
       //    $table->integer('no_of_prob_solved');
           $table->integer('rank');
-          $table->integer('start_time')->nullable();
-          $table->integer('cur_lvl');
+          $table->integer('st')->nullable();
+          $table->integer('cc');
 
       });
     }
