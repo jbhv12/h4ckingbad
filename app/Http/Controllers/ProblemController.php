@@ -87,10 +87,23 @@ class ProblemController extends Controller
 	}
 	public function evaluate(Request $req, $id)
 	{
+		$userId = Auth::id();
+
+		$us = \App\UserStats::find($userId);
+		$userStartTime = $us->st;
+		$userCurrentContest = $us->cc;
+		$contest = DB::table('contests')->where('id', $userCurrentContest)->first();
+		$contestEndTime = $contest->end_time;
+		$contestDuration = $contest->duration;
+
+
+		if(time()>$contestEndTime or time()-$userStartTime > $contestDuration) {
+			return "puru";
+		}
+
 		$enterdFlag = $req->input('flag');
 		$probId = $req->input('pid');
 		$probId = $id;
-		$userId = Auth::id();
 		//if user already solved prob
 		$userSolvedProblemArray = unserialize(DB::table('userStats')->where('id', $userId)->value('problems_solved'));
 		if( in_array( $probId ,$userSolvedProblemArray ) )

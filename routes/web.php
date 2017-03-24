@@ -52,6 +52,7 @@ Route::get('/c{cid}/start',function($cid){
 		$userStats->save();
 	  }else{
 		  echo "already started";
+		  return redirect('/c'.$cid.'/problems');
 	  }
   }else{
 	  echo "vah h hju orrr pati gyu h";
