@@ -4,7 +4,7 @@
 //Title.Tagline
 start button:
 
-<a href="/start"> START BUTTON </a>
+<a href="/c1/start"> START BUTTON </a>
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">

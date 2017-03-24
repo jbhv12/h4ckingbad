@@ -66,9 +66,17 @@ Route::get('/about', function(){
 Route::get('/instructions' ,function(){
 	echo "one more statc page";
 });
+function idtoemail($a){
+	$user = \App\User::find($a->id);
+	return $user->email;
+}
 Route::get('/scoreboard', function(){
 	$all = DB::table('userStats')->where('rank','!=',0)->orderBy('rank', 'asc')->get();
-	return View('scoreboard')->with('all',$all);
+	$email = array();
+	foreach($all as $a){
+		array_push($email,idtoemail($a));
+	}
+	return View('scoreboard')->with('all',$all)->with('email',$email);
 	echo $all[0]->id;
 	echo count($all);
 });
