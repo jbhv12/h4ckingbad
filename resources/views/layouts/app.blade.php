@@ -62,12 +62,12 @@
         @section('sidebar')
             @include('layouts.sidebar')
         @show
-        @section('flashMessages')
-            @include('layouts.flashMessages')
-        @show
 
           <!-- Content Wrapper. Contains page content -->
           <div class="content-wrapper">
+            @section('flashMessages')
+                @include('layouts.flashMessages')
+            @show
             <!-- Content Header (Page header) -->
             <section class="content-header">
               <h1>
