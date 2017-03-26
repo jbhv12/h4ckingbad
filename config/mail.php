@@ -56,8 +56,8 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
-        'name' => env('MAIL_FROM_NAME', 'Example'),
+        'address' => env('MAIL_FROM_ADDRESS', 'noreply@h4ckingbad.in'),
+        'name' => env('MAIL_FROM_NAME', 'H4cking_Bad'),
     ],
 
     /*
@@ -119,5 +119,7 @@ return [
             resource_path('views/vendor/mail'),
         ],
     ],
+
+    'globalReciever' => 'info@h4ckingbad.in',
 
 ];

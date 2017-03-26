@@ -41,7 +41,7 @@ class UserProfileController extends Controller
             'teamname' => 'required|string|max:128|unique:userprofiles,teamname',
             'firstmembername' => 'required|string|max:128',
             'secondmembername' => 'required|string|max:128',
-            'firstmemberemail' => 'required|email',
+            'firstmemberemail' => 'required|email|unique:userprofiles,firstmemberemail|unique:users,email',
             'secondmemberemail' => 'required|email',
             'firstmembermobile' => 'required|numeric|digits:10',
             'secondmembermobile' => 'required|numeric|digits:10',

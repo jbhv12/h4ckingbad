@@ -14,7 +14,7 @@
 
     <div class="register-box" style="margin-top: 0px;">
       <div class="register-logo">
-        <a href="#"><b>H</b>4<b>cking Bad</b></a>
+        <a href="{{ url('/') }}"><b>H</b>4<b>cking Bad</b></a>
       </div>
 
       <div class="register-box-body">
@@ -183,10 +183,14 @@
             <!-- /.col -->
           </div>
         </form>
-        <br/>
-        <span class="text-center"> -- OR -- </span>
-        <br/>
-        <a href="#" class="text-center">We have already registered</a>
+        <div class="social-auth-links text-center">
+          <p>
+            - OR -<br>
+            <a href="{{ url('login') }}" class="text-center">Already registered?</a>
+          </p>
+
+        </div>
+        <!-- /.social-auth-links -->
       </div>
       <!-- /.form-box -->
     </div>
