@@ -30,7 +30,7 @@ class AccessGroup extends Model
      */
     public function Users()
     {
-        return $this->belongsToMany('App\User', 'user_accessgroups', 'accessgroup_id', 'user_id')->withTimestamps();;
+        return $this->belongsToMany('App\User', 'user_accessgroups', 'accessgroup_id', 'user_id')->withPivot('id')->withTimestamps();;
     }
 
 }

@@ -32,7 +32,7 @@ class Category extends Model
      */
     public function Rounds()
     {
-        return $this->belongsToMany('App\Round', 'categories_in_rounds', 'category_id', 'round_id'))->withPivot('total_problems')->withTimestamps();
+        return $this->belongsToMany('App\Round', 'categories_in_rounds', 'category_id', 'round_id'))->withPivot('id','total_problems')->withTimestamps();
     }
 
     /**
