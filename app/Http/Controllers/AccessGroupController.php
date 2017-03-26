@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 use App\AccessGroup;
 
@@ -37,7 +38,7 @@ class AccessGroupController extends Controller
      */
     public function create()
     {
-        //
+        return view('accessgroup.create');
     }
 
     /**
@@ -48,7 +49,17 @@ class AccessGroupController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required|string|max:64|unique:accessgroups,name',
+        ]);
+
+        $accessgroup = new AccessGroup;
+        $accessgroup->name = $request->name;
+        $accessgroup->save();
+
+        $request->session()->flash('flashSuccess', 'AccessGroup Created Successfully');
+
+        return redirect()->route('accessgroup.index');
     }
 
     /**
@@ -59,7 +70,9 @@ class AccessGroupController extends Controller
      */
     public function show($id)
     {
-        //
+        $accessgroup = AccessGroup::findOrFail($id);
+        $users = $accessgroup->users()->get();
+        return $users;
     }
 
     /**
@@ -68,9 +81,10 @@ class AccessGroupController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
-        //
+        $request->session()->flash('flashWarning', 'This feature is disabled till Techfest');
+        return back();
     }
 
     /**
@@ -82,7 +96,8 @@ class AccessGroupController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->session()->flash('flashWarning', 'This feature is disabled till Techfest');
+        return back();
     }
 
     /**
@@ -93,6 +108,7 @@ class AccessGroupController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $request->session()->flash('flashWarning', 'This feature is disabled till Techfest');
+        return back();
     }
 }

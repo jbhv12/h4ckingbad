@@ -19,11 +19,14 @@
     </div>
 
     <div class="row pad margin no-print">
-    	<div class="col-sm-8">
+    	<div class="col-sm-4">
+        	<a href="#" class="btn btn-danger btn-block"><i class="fa fa-plus"></i> Add Admin</a>	
+        </div>
+        <div class="col-sm-4">
         	
         </div>
       	<div class="col-sm-4">
-          <a href="#" class="btn btn-success btn-block"><i class="fa fa-plus"></i> Add New</a>
+          <a href="{{ route('accessgroup.create') }}" class="btn btn-success btn-block"><i class="fa fa-plus"></i> Add New Group</a>
         </div>
         <!-- /.col -->	
       </div>
@@ -60,19 +63,19 @@
                   <tr>
                     <td>{{ $accessgroup->id }}{{-- $loop->index + 1 --}}</td>
                     <td>{{ $accessgroup->name }}</td>
-                    <td><a href="#" class="btn btn-info btn-sm">View Users</a></td>
-                    <td><a href="#" class="btn btn-primary btn-sm">Edit</a></td>
+                    <td><a href="{{ route('accessgroup.show', $accessgroup->id) }}" class="btn btn-info btn-sm">View Users</a></td>
+                    <td><a href="#" class="btn btn-primary btn-sm" disabled  data-toggle="tooltip" data-placement="top" title="Disabled till Techfest">Edit</a></td>
                     <td>
                       <form action="#" method="POST" style="display: inline;">
                         {{-- csrf_field() --}}
                         {{-- method_field('DELETE') --}}
-                        <input type="submit" name="deleteButton" class="btn btn-danger btn-sm" value="Delete" disabled>
+                        <button type="submit" name="deleteButton" class="btn btn-danger btn-sm" disabled  data-toggle="tooltip" data-placement="top" title="Disabled till Techfest">Delete</button>
                       </form>
                     </td>
                   </tr> 
                  @empty
                  	<tr>
-                 		<td colspan="5"><span class="lead text-info">Mo Groups found!</span></td>
+                 		<td colspan="5"><span class="lead text-info">No Groups found!</span></td>
                  	</tr> 
                 @endforelse
             </tbody>
