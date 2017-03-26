@@ -47,7 +47,7 @@ class User extends Authenticatable
      */
     public function AccessGroups()
     {
-        return $this->belongsToMany('App\AccessGroup', 'user_accessgroups', 'user_id', 'accessgroup_id')->withTimestamps();;
+        return $this->belongsToMany('App\AccessGroup', 'user_accessgroups', 'user_id', 'accessgroup_id')->withPivot('id')->withTimestamps();;
     }
 
     /**
@@ -56,7 +56,7 @@ class User extends Authenticatable
      */
     public function Rounds()
     {
-        return $this->belongsToMany('App\Round', 'users_in_rounds', 'user_id', 'round_id')->withPivot('starttime','endtime')->withTimestamps();;
+        return $this->belongsToMany('App\Round', 'users_in_rounds', 'user_id', 'round_id')->withPivot('id','starttime','endtime')->withTimestamps();;
     }
 
     /**
@@ -65,6 +65,6 @@ class User extends Authenticatable
      */
     public function Problems()
     {
-        return $this->belongsToMany('App\Problem', 'problems_by_users', 'user_id', 'problem_id')->withPivot('hastried','hastakenminorhint','hastakenmajorhint','time','points')->withTimestamps();;
+        return $this->belongsToMany('App\Problem', 'problems_by_users', 'user_id', 'problem_id')->withPivot('id','hastried','hastakenminorhint','hastakenmajorhint','time','points')->withTimestamps();;
     }
 }

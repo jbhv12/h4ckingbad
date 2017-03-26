@@ -47,6 +47,6 @@ class Problem extends Model
      */
     public function Users()
     {
-        return $this->belongsToMany('App\User', 'problems_by_users', 'problem_id', 'user_id')->withPivot('hastried','hastakenminorhint','hastakenmajorhint','time','points')->withTimestamps();;
+        return $this->belongsToMany('App\User', 'problems_by_users', 'problem_id', 'user_id')->withPivot('id','hastried','hastakenminorhint','hastakenmajorhint','time','points')->withTimestamps();;
     }
 }

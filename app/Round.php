@@ -32,7 +32,7 @@ class Round extends Model
      */
     public function Categories()
     {
-        return $this->belongsToMany('App\Category', 'categories_in_rounds', 'round_id', 'category_id'))->withPivot('total_problems')->withTimestamps();
+        return $this->belongsToMany('App\Category', 'categories_in_rounds', 'round_id', 'category_id'))->withPivot('id','total_problems')->withTimestamps();
     }
 
     /**
@@ -41,6 +41,6 @@ class Round extends Model
      */
     public function Users()
     {
-        return $this->belongsToMany('App\User', 'users_in_rounds', 'round_id', 'user_id')->withPivot('starttime','endtime')->withTimestamps();;
+        return $this->belongsToMany('App\User', 'users_in_rounds', 'round_id', 'user_id')->withPivot('id','starttime','endtime')->withTimestamps();;
     }
 }
