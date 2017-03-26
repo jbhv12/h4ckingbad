@@ -29,25 +29,45 @@
       </form>
       <!-- /.search form -->
 
-      <!-- Sidebar Menu -->
-      <ul class="sidebar-menu">
-        <li class="header">HEADER</li>
-        <!-- Optionally, you can add icons to the links -->
-        <li class="active"><a href="#"><i class="fa fa-link"></i> <span>Link</span></a></li>
-        <li><a href="#"><i class="fa fa-link"></i> <span>Another Link</span></a></li>
-        <li class="treeview">
-          <a href="#"><i class="fa fa-link"></i> <span>Multilevel</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="#">Link in level 2</a></li>
-            <li><a href="#">Link in level 2</a></li>
+      @if( !Auth::guest() )
+        @if( Auth::user()->isAdmin())
+          <!-- Sidebar Menu -->
+          <ul class="sidebar-menu">
+            <li class="header">ADMIN Panel</li>
+            <!-- Optionally, you can add icons to the links -->
+            <li><a href="#"><i class="fa fa-user"></i> <span>Users</span></a></li>
+            <li class="{{ Request::is('accessgroup') ? "active" : "" }}"><a href="{{ route('accessgroup.index') }}"><i class="fa fa-group"></i> <span>Access Groups</span></a></li>
+            <li><a href="#"><i class="fa fa-cubes"></i> <span>Categories</span></a></li>
+            <li><a href="#"><i class="fa fa-flag"></i> <span>Rounds</span></a></li>
+            <li><a href="#"><i class="fa fa-puzzle-piece"></i> <span>Problems</span></a></li>
+            <li><a href="#"><i class="fa  fa-trophy"></i> <span>Leaderboard</span></a></li>
           </ul>
-        </li>
-      </ul>
-      <!-- /.sidebar-menu -->
+          <!-- /.sidebar-menu -->
+        @endif
+
+        @if( Auth::user()->isParticipant())
+          <!-- Sidebar Menu -->
+          <ul class="sidebar-menu">
+            <li class="header">Participant Panel</li>
+            <!-- Optionally, you can add icons to the links -->
+            <li><a href="#"><i class="fa fa-user"></i> <span>Team Profile</span></a></li>
+            <li><a href="#"><i class="fa fa-flag"></i> <span>My Rounds</span></a></li>
+            <li class="treeview">
+              <a href="#"><i class="fa fa-link"></i> <span>Multilevel</span>
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="#">Link in level 2</a></li>
+                <li><a href="#">Link in level 2</a></li>
+              </ul>
+            </li>
+          </ul>
+          <!-- /.sidebar-menu -->
+        @endif
+      @endif
+      
     </section>
     <!-- /.sidebar -->
   </aside>

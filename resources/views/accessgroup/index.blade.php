@@ -20,7 +20,7 @@
 
     <div class="row pad margin no-print">
     	<div class="col-sm-4">
-        	<a href="#" class="btn btn-danger btn-block"><i class="fa fa-plus"></i> Add Admin</a>	
+        	<a href="{{ route('accessgroup.createuser', $adminGroup->id) }}" class="btn btn-danger btn-block"><i class="fa fa-plus"></i> Add Admin</a>	
         </div>
         <div class="col-sm-4">
         	
@@ -38,7 +38,7 @@
       <div class="row">
         <div class="col-xs-12">
           <h2 class="page-header">
-            <i class="fa fa-database"></i> Current Access Groups
+            <i class="fa fa-users"></i> Current Access Groups
             <small class="pull-right">Date: {{ Carbon::today()->toFormattedDateString() }}</small>
           </h2>
         </div>

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 use App\AccessGroup;
+use App\User;
 
 class AccessGroupController extends Controller
 {
@@ -28,7 +29,8 @@ class AccessGroupController extends Controller
     public function index()
     {
         $accessgroups = AccessGroup::all();
-        return view('accessgroup.index')->with('accessgroups',$accessgroups);
+        $adminGroup = AccessGroup::adminGroup();
+        return view('accessgroup.index')->with('accessgroups',$accessgroups)->with('adminGroup', $adminGroup);
     }
 
     /**
@@ -71,8 +73,9 @@ class AccessGroupController extends Controller
     public function show($id)
     {
         $accessgroup = AccessGroup::findOrFail($id);
-        $users = $accessgroup->users()->get();
-        return $users;
+        $users = $accessgroup->users()->paginate(25);
+        
+        return view('accessgroup.show')->with('accessgroup', $accessgroup)->with('users', $users);
     }
 
     /**
@@ -110,5 +113,63 @@ class AccessGroupController extends Controller
     {
         $request->session()->flash('flashWarning', 'This feature is disabled till Techfest');
         return back();
+    }
+
+    /**
+     * Remove the user from this group.
+     *
+     * @param  int  $accessgroup
+     * @param  int  $user
+     * @return \Illuminate\Http\Response
+     */
+    public function destroyUserAccessGroup(Request $request, $accessgroup , $user)
+    {
+        $user = User::findOrFail($user);
+        $accessgroup = AccessGroup::findOrFail($accessgroup);
+
+        $user->AccessGroups()->detach($accessgroup);
+
+        $request->session()->flash('flashSuccess', 'User Removed from this Access Group');
+        
+        return redirect()->route('accessgroup.show', $accessgroup->id);
+    }
+
+    /**
+     * Show a Page to add new user in this group.
+     *
+     * @param  int  $accessgroup
+     * @return \Illuminate\Http\Response
+     */
+    public function createUserAccessGroup(Request $request, $accessgroup)
+    {
+        $accessgroup = AccessGroup::findOrFail($accessgroup);
+
+        return view('accessgroup.createuseraccessgroup')->with('accessgroup', $accessgroup);
+    }
+
+    /**
+     * Add new user in this group.
+     *
+     * @param  int  $accessgroup
+     * @return \Illuminate\Http\Response
+     */
+    public function storeUserAccessGroup(Request $request, $accessgroup)
+    {   
+        $this->validate($request, [
+            'email' => 'required|email|exists:users,email',
+        ]);
+
+        $accessgroup = AccessGroup::findOrFail($accessgroup);
+        $user = User::where('email',$request->email)->first();
+
+        if($user->AccessGroups->contains($accessgroup)){
+            $request->session()->flash('flashWarning', 'User is already in this group');
+        }
+        else{
+            $user->AccessGroups()->attach($accessgroup);
+            $request->session()->flash('flashSuccess', 'User Added to this Access Group');
+        }
+
+        return redirect()->route('accessgroup.show', $accessgroup->id);
     }
 }

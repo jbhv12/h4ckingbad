@@ -6,7 +6,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 use App\UserProfile;
-use App\AccessGroups;
+use App\AccessGroup;
 use App\Round;
 use App\Problem;
 
@@ -67,4 +67,26 @@ class User extends Authenticatable
     {
         return $this->belongsToMany('App\Problem', 'problems_by_users', 'user_id', 'problem_id')->withPivot('id','hastried','hastakenminorhint','hastakenmajorhint','time','points')->withTimestamps();;
     }
+
+    /**
+     * Check if user is admin
+     */
+    public function isAdmin(){
+        $adminGroup = AccessGroup::adminGroup();
+        $isAdmin = $this->AccessGroups->contains($adminGroup);
+
+        return $isAdmin;
+    }
+
+    /**
+     * Check if user is participant
+     */
+    public function isParticipant(){
+        $participantGroup = AccessGroup::participantGroup();
+        $isParticipant = $this->AccessGroups->contains($participantGroup);
+
+        return $isParticipant;
+    }
+
+
 }

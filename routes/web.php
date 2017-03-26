@@ -20,3 +20,6 @@ Auth::routes();
 Route::get('/home', 'HomeController@index');
 Route::resource('team', 'UserProfileController');
 Route::resource('accessgroup', 'AccessGroupController');
+Route::delete('accessgroup/{accessgroup}/user/{user}/remove', 'AccessGroupController@destroyUserAccessGroup')->name('accessgroup.destroyuser');
+Route::get('accessgroup/{accessgroup}/user/create', 'AccessGroupController@createUserAccessGroup')->name('accessgroup.createuser');
+Route::post('accessgroup/{accessgroup}/user/store', 'AccessGroupController@storeUserAccessGroup')->name('accessgroup.storeuser');

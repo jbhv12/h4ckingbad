@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\UserProfile;
 use App\User;
+use App\AccessGroup;
 
 class UserProfileController extends Controller
 {
@@ -67,6 +68,9 @@ class UserProfileController extends Controller
         $userprofile->secondmemberemail = $request->secondmemberemail;
         $userprofile->secondmembermobile = $request->secondmembermobile;
         $userprofile->save();
+
+        $participantGroup = AccessGroup::participantGroup();
+        $user->AccessGroups()->save($participantGroup);
 
         $request->session()->flash('flashSuccess', 'Team Created Successfully...Login Now');
 
