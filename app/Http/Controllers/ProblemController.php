@@ -142,20 +142,23 @@ class ProblemController extends Controller
 
 				//update rank
 				$userScore = DB::table('userStats')->where('id', $userId)->value('score');
-				$lowers = DB::table('userStats')->where('score', '<', $userScore)->orderBy('score', 'desc')->get();
+				$lowers = DB::table('userStats')->where('score', '<', $userScore)->where('score','>',$currentScore)->orderBy('score', 'desc')->get();
+				//echo $userScore, $currentScore;
+				//dd($lowers);
 
 				if(count($lowers)>0){
-					$newRank = $lowers[0]->rank + 1;
-					DB::table('userStats')->where('id', $userId)->update(['rank' => $newRank]);
-				}
-				foreach ($lowers as $lower) {
-					#echo $lower->id;
-					$rank = $lower->rank;
-					if($rank != 0){
-						DB::table('userStats')->where('id', $lower->id)->update(['rank' => $rank + 1]);
-					}
-				}
-
+ 					$newRank = $lowers[0]->rank  ;
+ 					DB::table('userStats')->where('id', $userId)->update(['rank' => $newRank]);
+ 				}
+ 				foreach ($lowers as $lower) {
+ 					#echo $lower->id;
+ 					$rank = $lower->rank;
+ 					if($rank != 0){
+ 						DB::table('userStats')->where('id', $lower->id)->update(['rank' => $rank + 1]);
+ 					}
+ 				}
+ 				echo "shabash!";
+ 
 			}else {
 				echo "khotu h topaa";
 			}
