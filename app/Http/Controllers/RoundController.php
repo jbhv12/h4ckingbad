@@ -22,6 +22,9 @@ class RoundController extends Controller
         $this->middleware('auth', [
             "except" => ['']
           ]);
+        $this->middleware('admin', [
+            "except" => ['']
+          ]);
     }
 
     /**
