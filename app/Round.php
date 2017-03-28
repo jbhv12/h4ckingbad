@@ -32,7 +32,7 @@ class Round extends Model
      */
     public function Categories()
     {
-        return $this->belongsToMany('App\Category', 'categories_in_rounds', 'round_id', 'category_id'))->withPivot('id','total_problems')->withTimestamps();
+        return $this->belongsToMany('App\Category', 'categories_in_rounds', 'round_id', 'category_id')->withPivot('id','total_problems')->withTimestamps();
     }
 
     /**
@@ -42,5 +42,37 @@ class Round extends Model
     public function Users()
     {
         return $this->belongsToMany('App\User', 'users_in_rounds', 'round_id', 'user_id')->withPivot('id','starttime','endtime')->withTimestamps();;
+    }
+
+    /**
+     * Get Hours from the maxtime
+     *
+     */
+    public function getHours(){
+        $init = $this->maxtime;
+        $hours = floor($init / 3600);
+
+        return $hours;
+    }
+    
+    /**
+     * Get Minutes from the maxtime
+     *
+     */
+    public function getMinutes(){
+        $hours = $this->getHours();
+        $minutes = floor(($this->maxtime - ($hours * 3600)) / 60);
+        return $minutes;
+    }
+    /**
+     * Get Seconds from the maxtime
+     *
+     */
+    public function getSeconds(){
+        $hours = $this->getHours();
+        $hMin = $this->maxtime - ($hours * 3600);
+        $minutes = $this->getMinutes();
+        $seconds = $hMin - ($minutes * 60);
+        return $seconds;
     }
 }

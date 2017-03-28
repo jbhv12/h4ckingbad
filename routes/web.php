@@ -25,3 +25,4 @@ Route::get('accessgroup/{accessgroup}/user/create', 'AccessGroupController@creat
 Route::post('accessgroup/{accessgroup}/user/store', 'AccessGroupController@storeUserAccessGroup')->name('accessgroup.storeuser');
 
 Route::resource('category','CategoryController');
+Route::resource('round','RoundController');
