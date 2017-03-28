@@ -137,4 +137,59 @@ class RoundController extends Controller
         $request->session()->flash('flashWarning', 'This feature is disabled till Techfest');
         return back();
     }
+
+    /**
+     * Display categories under this Round.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function showCategory($id)
+    {
+        $round = Round::findOrFail($id);
+        $categories = $round->Categories;
+        
+        return view('round.showcategory')->with('round', $round)->with('categories', $categories);
+    }
+
+    /**
+     * Create categories under this Round.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function createCategory($id)
+    {
+        $round = Round::findOrFail($id);
+        $categories = Category::all();
+        
+        return view('round.createcategory')->with('round', $round)->with('categories', $categories);
+    }
+
+    /**
+     * Add new category in this round.
+     *
+     * @param  int  $accessgroup
+     * @return \Illuminate\Http\Response
+     */
+    public function storeCategory(Request $request, $id)
+    {   
+        $this->validate($request, [
+            'category' => 'required|numeric|exists:categories,id',
+            'total_problems' => 'required|numeric|min:1',
+        ]);
+
+        $round = Round::findOrFail($id);
+        $category = Category::where('id',$request->category)->first();
+
+        if($category->Rounds->contains($round)){
+            $request->session()->flash('flashWarning', 'Category is already in this round');
+        }
+        else{
+            $category->Rounds()->attach($round, ['total_problems' => $request->total_problems]);
+            $request->session()->flash('flashSuccess', 'Category Added to this Round');
+        }
+
+        return redirect()->route('round.showcategory', $round->id);
+    }
 }

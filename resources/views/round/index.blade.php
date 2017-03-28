@@ -65,7 +65,7 @@
                     <td>{{ $round->id }}{{-- $loop->index + 1 --}}</td>
                     <td>{{ $round->name }}</td>
                     <td>{{ $round->maxtime }}</td>
-                    <td><a href="#" class="btn btn-info btn-sm">Categories</a></td>
+                    <td><a href="{{ route('round.showcategory', $round->id) }}" class="btn btn-info btn-sm">Categories</a></td>
                     <td><a href="#" class="btn btn-info btn-sm">Users</a></td>
                     <td><a href="{{ route('round.edit', $round->id) }}" class="btn btn-primary btn-sm">Edit</a></td>
                     <td>
