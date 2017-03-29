@@ -38,7 +38,7 @@
             <li><a href="#"><i class="fa fa-user"></i> <span>Users</span></a></li>
             <li class="{{ Request::is('accessgroup') ? "active" : "" }}"><a href="{{ route('accessgroup.index') }}"><i class="fa fa-group"></i> <span>Access Groups</span></a></li>
             <li class="{{ Request::is('category') ? "active" : "" }}"><a href="{{ route('category.index') }}"><i class="fa fa-cubes"></i> <span>Categories</span></a></li>
-            <li class="{{ Request::is('round') ? "active" : "" }}""><a href="{{ route('round.index') }}"><i class="fa fa-flag"></i> <span>Rounds</span></a></li>
+            <li class="{{ Request::is('round') ? "active" : "" }}"><a href="{{ route('round.index') }}"><i class="fa fa-flag"></i> <span>Rounds</span></a></li>
             <li class="{{ Request::is('problem') ? "active" : "" }}"><a href="{{ route('problem.index') }}"><i class="fa fa-puzzle-piece"></i> <span>Problems</span></a></li>
             <li><a href="#"><i class="fa  fa-trophy"></i> <span>Leaderboard</span></a></li>
           </ul>
@@ -50,7 +50,7 @@
           <ul class="sidebar-menu">
             <li class="header">Participant Panel</li>
             <!-- Optionally, you can add icons to the links -->
-            <li><a href="#"><i class="fa fa-user"></i> <span>Team Profile</span></a></li>
+            <li class="{{ Route::is('team.edit') ? "active" : "" }}"><a href="{{ route('team.edit', Auth::user()->UserProfile->id) }}"><i class="fa fa-user"></i> <span>Team Profile</span></a></li>
             <li><a href="#"><i class="fa fa-flag"></i> <span>My Rounds</span></a></li>
             <li class="treeview">
               <a href="#"><i class="fa fa-link"></i> <span>Multilevel</span>
