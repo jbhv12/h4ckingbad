@@ -16,6 +16,7 @@ class CreateProblemsTable extends Migration
         Schema::create('problems', function (Blueprint $table) {
             $table->increments('id');
 
+            $table->string('title',128)->unique();
             //Points for this problem comes from Category
             //Multiple Problems under one category
             $table->integer('category_id')->unsigned();

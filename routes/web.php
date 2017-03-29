@@ -29,3 +29,5 @@ Route::resource('round','RoundController');
 Route::get('round/{round}/category','RoundController@showCategory')->name('round.showcategory');
 Route::get('round/{round}/category/create','RoundController@createCategory')->name('round.createcategory');
 Route::post('round/{round}/category/store','RoundController@storeCategory')->name('round.storecategory');
+
+Route::resource('problem','ProblemController');

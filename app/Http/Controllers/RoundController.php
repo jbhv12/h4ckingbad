@@ -15,7 +15,7 @@ use App\UserProfile;
 class RoundController extends Controller
 {
     /**
-     * Instantiate a new AccessGroupController instance.
+     * Instantiate a new RoundController instance.
      */
     public function __construct()
     {

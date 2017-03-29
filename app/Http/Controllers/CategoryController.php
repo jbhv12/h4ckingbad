@@ -14,7 +14,7 @@ use App\UserProfile;
 class CategoryController extends Controller
 {
     /**
-     * Instantiate a new AccessGroupController instance.
+     * Instantiate a new CategoryController instance.
      */
     public function __construct()
     {
