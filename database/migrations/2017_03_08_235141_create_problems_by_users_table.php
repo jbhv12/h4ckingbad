@@ -30,6 +30,11 @@ class CreateProblemsByUsersTable extends Migration
             //User may be given any problem one time only
             $table->unique(['user_id', 'problem_id']);
 
+            //Each problem will be given through One round
+            $table->integer('users_in_rounds_id')->unsigned();
+            $table->foreign('users_in_rounds_id')->references('id')->on('users_in_rounds')
+                    ->onDelete('cascade')->onUpdate('cascade');
+                    
             //Check weather user has tried to solve problem or not
             $table->boolean('hastried');
 

@@ -65,7 +65,7 @@ class User extends Authenticatable
      */
     public function Problems()
     {
-        return $this->belongsToMany('App\Problem', 'problems_by_users', 'user_id', 'problem_id')->withPivot('id','hastried','hastakenminorhint','hastakenmajorhint','time','points')->withTimestamps();;
+        return $this->belongsToMany('App\Problem', 'problems_by_users', 'user_id', 'problem_id')->withPivot('id','users_in_rounds_id','hastried','hastakenminorhint','hastakenmajorhint','time','points')->withTimestamps();;
     }
 
     /**

@@ -21,6 +21,7 @@ class UserInRound extends Model
     protected $fillable = [
         'user_id',
         'round_id',
+        'hasstarted',
         'starttime',
         'endtime',
     ];

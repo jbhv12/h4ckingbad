@@ -13,6 +13,8 @@ use App\UserProfile;
 
 use Carbon\Carbon;
 
+use DB;
+
 class RoundController extends Controller
 {
     /**
@@ -221,7 +223,7 @@ class RoundController extends Controller
     {
         $round = Round::findOrFail($id);
         //change it to show minimal users later-on
-        $users = User::all();
+        $users = User::orderBy('created_at','desc')->get();
         
         return view('round.createuser')->with('round', $round)->with('users', $users);
     }
@@ -245,10 +247,35 @@ class RoundController extends Controller
             $request->session()->flash('flashWarning', 'User is already in this round');
         }
         else{
-            $user->Rounds()->attach($round, ['hasstarted' => false,
-                                                'starttime' => Carbon::now(),
-                                                'endtime' => Carbon::now()->addSeconds(1)]);
-            $request->session()->flash('flashSuccess', 'Category Added to this Round');
+            DB::beginTransaction();
+            try{
+                $user->Rounds()->attach($round, [
+                    'hasstarted' => false,
+                    'starttime' => Carbon::now(),
+                    'endtime' => Carbon::now()->addSeconds(1)
+                ]);
+                $users_in_rounds =  DB::table('users_in_rounds')->select('id')->where('user_id',$user->id)->where('round_id',$round->id)->first();
+                $categories = $round->Categories;
+                foreach ($categories as $category) {
+                    $problems = Problem::where('category_id',$category->id)->inRandomOrder()->limit($category->pivot->total_problems)->get();
+                    foreach ($problems as $problem) {
+                        $user->Problems()->attach($problem, [
+                                'users_in_rounds_id' => $users_in_rounds->id,
+                                'hastried' => false,
+                                'hastakenminorhint' => false,
+                                'hastakenmajorhint' => false,
+                                'time' => 0,
+                                'points' => 0,
+                            ]);
+                    }
+                }
+                $request->session()->flash('flashSuccess', 'User Added to this Round');
+                DB::commit();
+            }
+             catch (\Exception $e) {
+                DB::rollback();
+                $request->session()->flash('flashDanger', 'Something went wrong on server side!');
+            }
         }
 
         return redirect()->route('round.showuser', $round->id);
