@@ -29,7 +29,7 @@ class CreateUsersInRoundsTable extends Migration
             //composite unique key
             //User can enter any round one time only
             $table->unique(['user_id', 'round_id']);
-
+            $table->boolean('hasstarted');
             $table->dateTime('starttime');
             //End time = Start Time + MaxTime in this Round
             $table->dateTime('endtime');

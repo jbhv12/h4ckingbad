@@ -56,7 +56,7 @@ class User extends Authenticatable
      */
     public function Rounds()
     {
-        return $this->belongsToMany('App\Round', 'users_in_rounds', 'user_id', 'round_id')->withPivot('id','starttime','endtime')->withTimestamps();;
+        return $this->belongsToMany('App\Round', 'users_in_rounds', 'user_id', 'round_id')->withPivot('id','starttime','endtime','hasstarted')->withTimestamps();;
     }
 
     /**

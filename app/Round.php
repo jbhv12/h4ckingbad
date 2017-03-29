@@ -41,7 +41,7 @@ class Round extends Model
      */
     public function Users()
     {
-        return $this->belongsToMany('App\User', 'users_in_rounds', 'round_id', 'user_id')->withPivot('id','starttime','endtime')->withTimestamps();;
+        return $this->belongsToMany('App\User', 'users_in_rounds', 'round_id', 'user_id')->withPivot('id','starttime','endtime','hasstarted')->withTimestamps();;
     }
 
     /**

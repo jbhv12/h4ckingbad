@@ -11,6 +11,7 @@ use App\Problem;
 use App\User;
 use App\UserProfile;
 
+use Carbon\Carbon;
 
 class RoundController extends Controller
 {
@@ -194,5 +195,62 @@ class RoundController extends Controller
         }
 
         return redirect()->route('round.showcategory', $round->id);
+    }
+
+    /**
+     * Display categories under this Round.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function showUser($id)
+    {
+        $round = Round::findOrFail($id);
+        $users = $round->Users;
+        
+        return view('round.showuser')->with('round', $round)->with('users', $users);
+    }
+
+    /**
+     * Create categories under this Round.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function createUser($id)
+    {
+        $round = Round::findOrFail($id);
+        //change it to show minimal users later-on
+        $users = User::all();
+        
+        return view('round.createuser')->with('round', $round)->with('users', $users);
+    }
+
+    /**
+     * Add new category in this round.
+     *
+     * @param  int  $accessgroup
+     * @return \Illuminate\Http\Response
+     */
+    public function storeUser(Request $request, $id)
+    {   
+        $this->validate($request, [
+            'user' => 'required|numeric|exists:users,id',
+        ]);
+
+        $round = Round::findOrFail($id);
+        $user = User::where('id',$request->user)->first();
+
+        if($user->Rounds->contains($round)){
+            $request->session()->flash('flashWarning', 'User is already in this round');
+        }
+        else{
+            $user->Rounds()->attach($round, ['hasstarted' => false,
+                                                'starttime' => Carbon::now(),
+                                                'endtime' => Carbon::now()->addSeconds(1)]);
+            $request->session()->flash('flashSuccess', 'Category Added to this Round');
+        }
+
+        return redirect()->route('round.showuser', $round->id);
     }
 }
