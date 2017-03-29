@@ -81,7 +81,7 @@ class RoundController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request,$id)
     {
         $request->session()->flash('flashWarning', 'This feature is disabled till Techfest');
         return back();

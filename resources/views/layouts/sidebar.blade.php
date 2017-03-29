@@ -35,7 +35,7 @@
           <ul class="sidebar-menu">
             <li class="header">ADMIN Panel</li>
             <!-- Optionally, you can add icons to the links -->
-            <li><a href="#"><i class="fa fa-user"></i> <span>Users</span></a></li>
+            <li class="{{ Request::is('user') ? "active" : "" }}"><a href="{{ route('user.index') }}"><i class="fa fa-user"></i> <span>Users</span></a></li>
             <li class="{{ Request::is('accessgroup') ? "active" : "" }}"><a href="{{ route('accessgroup.index') }}"><i class="fa fa-group"></i> <span>Access Groups</span></a></li>
             <li class="{{ Request::is('category') ? "active" : "" }}"><a href="{{ route('category.index') }}"><i class="fa fa-cubes"></i> <span>Categories</span></a></li>
             <li class="{{ Request::is('round') ? "active" : "" }}"><a href="{{ route('round.index') }}"><i class="fa fa-flag"></i> <span>Rounds</span></a></li>

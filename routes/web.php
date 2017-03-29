@@ -35,3 +35,5 @@ Route::resource('problem','ProblemController');
 Route::get('round/{round}/user','RoundController@showUser')->name('round.showuser');
 Route::get('round/{round}/user/create','RoundController@createUser')->name('round.createuser');
 Route::post('round/{round}/user/store','RoundController@storeUser')->name('round.storeuser');
+
+Route::resource('user','UserController');
