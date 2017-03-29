@@ -51,18 +51,10 @@
             <li class="header">Participant Panel</li>
             <!-- Optionally, you can add icons to the links -->
             <li class="{{ Route::is('team.edit') ? "active" : "" }}"><a href="{{ route('team.edit', Auth::user()->UserProfile->id) }}"><i class="fa fa-user"></i> <span>Team Profile</span></a></li>
-            <li><a href="#"><i class="fa fa-flag"></i> <span>My Rounds</span></a></li>
-            <li class="treeview">
-              <a href="#"><i class="fa fa-link"></i> <span>Multilevel</span>
-                <span class="pull-right-container">
-                  <i class="fa fa-angle-left pull-right"></i>
-                </span>
-              </a>
-              <ul class="treeview-menu">
-                <li><a href="#">Link in level 2</a></li>
-                <li><a href="#">Link in level 2</a></li>
-              </ul>
-            </li>
+            <li class="{{ Route::is('user.indexparticipantround') ? "active" : "" }}"><a href="{{ route('user.indexparticipantround', Auth::user()->id) }}"><i class="fa fa-flag"></i> <span>My Rounds</span></a></li>
+            <li><a href="#"><i class="fa fa-puzzle-piece"></i> <span>My Problems</span></a></li>
+            <li><a href="#"><i class="fa fa-trophy"></i> <span>LeaderBoard</span></a></li>
+            <li><a href="#"><i class="fa fa-bomb"></i> <span>Rules</span></a></li>
           </ul>
           <!-- /.sidebar-menu -->
         @endif

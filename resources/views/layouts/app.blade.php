@@ -15,6 +15,10 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
+    <!-- Pace -->
+    <link rel="stylesheet" type="text/css" href="{{ url('/adminlte/plugins/pace/pace.min.css') }}">
+    <script src="{{ url('/adminlte/plugins/pace/pace.min.js') }}"></script>
+
     <!-- Scripts -->
     <script>
         window.Laravel = {!! json_encode([

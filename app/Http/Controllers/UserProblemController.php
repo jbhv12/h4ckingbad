@@ -13,7 +13,9 @@ use App\UserProfile;
 
 use Carbon\Carbon;
 
-class UserController extends Controller
+use DB;
+
+class UserProblemController extends Controller
 {
     /**
      * Instantiate a new RoundController instance.
@@ -23,11 +25,8 @@ class UserController extends Controller
         $this->middleware('auth', [
             "except" => ['']
           ]);
-        $this->middleware('admin', [
-            "only" => ['index','create','store','show','edit','update','destroy']
-          ]);
-        $this->middleware('participant',[
-            "only" => ['indexParticipantRound']
+        $this->middleware('participant', [
+            "except" => ['']
           ]);
     }
 
@@ -38,8 +37,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::orderBy('updated_at','desc')->paginate(25);
-        return view('user.index')->with('users',$users);
+        //
     }
 
     /**
@@ -47,10 +45,9 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function create()
     {
-        $request->session()->flash('flashWarning', 'This feature is disabled till Techfest');
-        return back();
+        //
     }
 
     /**
@@ -61,8 +58,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $request->session()->flash('flashWarning', 'This feature is disabled till Techfest');
-        return back();
+        //
     }
 
     /**
@@ -71,10 +67,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request,$id)
+    public function show($id)
     {
-        $request->session()->flash('flashWarning', 'This feature is disabled till Techfest');
-        return back();
+        //
     }
 
     /**
@@ -83,10 +78,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Request $request,$id)
+    public function edit($id)
     {
-        $request->session()->flash('flashWarning', 'This feature is disabled till Techfest');
-        return back();
+        //
     }
 
     /**
@@ -98,8 +92,7 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->session()->flash('flashWarning', 'This feature is disabled till Techfest');
-        return back();
+        //
     }
 
     /**
@@ -108,20 +101,8 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request,$id)
+    public function destroy($id)
     {
-        $request->session()->flash('flashWarning', 'This feature is disabled till Techfest');
-        return back();
+        //
     }
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function indexParticipantRound($id)
-    {
-        $user = User::with('Rounds')->findOrFail($id);
-        return view('user.indexparticipantround')->with('user',$user);
-    }    
 }

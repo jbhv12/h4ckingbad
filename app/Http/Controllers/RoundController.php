@@ -257,7 +257,8 @@ class RoundController extends Controller
                 $users_in_rounds =  DB::table('users_in_rounds')->select('id')->where('user_id',$user->id)->where('round_id',$round->id)->first();
                 $categories = $round->Categories;
                 foreach ($categories as $category) {
-                    $problems = Problem::where('category_id',$category->id)->inRandomOrder()->limit($category->pivot->total_problems)->get();
+                    $userProblems = DB::table('problems_by_users')->select('problem_id')->where('user_id',$user->id)->get()->pluck('problem_id');
+                    $problems = Problem::where('category_id',$category->id)->whereNotIn('id', $userProblems->all())->inRandomOrder()->limit($category->pivot->total_problems)->get();
                     foreach ($problems as $problem) {
                         $user->Problems()->attach($problem, [
                                 'users_in_rounds_id' => $users_in_rounds->id,

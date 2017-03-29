@@ -12,12 +12,12 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+	return redirect()->route('home');
 });
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index');
+Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('team', 'UserProfileController');
 Route::resource('accessgroup', 'AccessGroupController');
 Route::delete('accessgroup/{accessgroup}/user/{user}/remove', 'AccessGroupController@destroyUserAccessGroup')->name('accessgroup.destroyuser');
@@ -37,3 +37,4 @@ Route::get('round/{round}/user/create','RoundController@createUser')->name('roun
 Route::post('round/{round}/user/store','RoundController@storeUser')->name('round.storeuser');
 
 Route::resource('user','UserController');
+Route::get('user/{id}/round','UserController@indexParticipantRound')->name('user.indexparticipantround');
