@@ -168,6 +168,35 @@ class UserController extends Controller
         $request->session()->put('endtime', $userround->starttime);
 
         return redirect()->route('user.indexparticipantproblem', $user->id);
+    }
+
+    /**
+     * Stop the round for this user.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function stopParticipantRound(Request $request,$user,$round)
+    {
+        $user = User::findOrFail($user);
+        $round = Round::findOrFail($round);
+
+        if(Gate::denies('participantround', [$user, $round] )){
+            $request->session()->flash('flashDanger', 'UnAutherized Access Detected.');
+            return back();
+        }
+
+        $userround = UserInRound::where('user_id',$user->id)->where('round_id',$round->id)->first();
+        $userround->endtime = Carbon::now();
+        $userround->save();
+
+        $request->session()->forget('round');
+        $request->session()->forget('user_in_round');
+        $request->session()->forget('leaderboard');
+        $request->session()->forget('starttime');
+        $request->session()->forget('endtime');
+
+        $request->session()->flash('flashSuccess', 'Your Response for this round has been submitted now.');
+        return redirect()->route('home');
     }    
 
     /**

@@ -25,4 +25,14 @@ class HomeController extends Controller
     {
         return view('home');
     }
+
+    /**
+     * Show the rules.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function rules()
+    {
+        return view('rules');
+    }
 }

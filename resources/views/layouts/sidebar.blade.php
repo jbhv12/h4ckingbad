@@ -40,7 +40,7 @@
             <li class="{{ Request::is('category') ? "active" : "" }}"><a href="{{ route('category.index') }}"><i class="fa fa-cubes"></i> <span>Categories</span></a></li>
             <li class="{{ Request::is('round') ? "active" : "" }}"><a href="{{ route('round.index') }}"><i class="fa fa-flag"></i> <span>Rounds</span></a></li>
             <li class="{{ Request::is('problem') ? "active" : "" }}"><a href="{{ route('problem.index') }}"><i class="fa fa-puzzle-piece"></i> <span>Problems</span></a></li>
-            <li><a href="#"><i class="fa  fa-trophy"></i> <span>Leaderboard</span></a></li>
+            <li><a href="#"><i class="fa fa-trophy"></i> <span>Leaderboard</span></a></li>
           </ul>
           <!-- /.sidebar-menu -->
         @endif
@@ -58,7 +58,7 @@
             @if(session()->has('leaderboard'))
               <li class=""><a href="#" data-toggle="tooltip" data-placement="right" title="Will be enebled after evening..."><i class="fa fa-trophy"></i> <span>LeaderBoard</span></a></li>
             @endif
-            <li><a href="#"><i class="fa fa-bomb"></i> <span>Rules</span></a></li>
+            <li class="{{ Route::is('rules') ? "active" : "" }}"><a href="{{ route('rules') }}"><i class="fa fa-bomb"></i> <span>Rules</span></a></li>
           </ul>
           <!-- /.sidebar-menu -->
         @endif

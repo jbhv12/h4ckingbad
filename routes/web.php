@@ -18,6 +18,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/rules', 'HomeController@rules')->name('rules');
 Route::resource('team', 'UserProfileController');
 Route::resource('accessgroup', 'AccessGroupController');
 Route::delete('accessgroup/{accessgroup}/user/{user}/remove', 'AccessGroupController@destroyUserAccessGroup')->name('accessgroup.destroyuser');
@@ -39,6 +40,7 @@ Route::post('round/{round}/user/store','RoundController@storeUser')->name('round
 Route::resource('user','UserController');
 Route::get('user/{user}/round','UserController@indexParticipantRound')->name('user.indexparticipantround');
 Route::post('user/{user}/round/{round}/start','UserController@startParticipantRound')->name('user.startparticipantround');
+Route::get('user/{user}/round/{round}/stop','UserController@stopParticipantRound')->name('user.stopparticipantround');
 Route::get('user/{user}/problem', 'UserController@indexParticipantProblem')->name('user.indexparticipantproblem');
 Route::get('user/{user}/problem/{problem}', 'UserController@showParticipantProblem')->name('user.showparticipantproblem');
 Route::post('user/{user}/problem/{problem}', 'UserController@solveParticipantProblem')->name('user.solveparticipantproblem');
