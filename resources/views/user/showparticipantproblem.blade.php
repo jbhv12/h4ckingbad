@@ -25,7 +25,7 @@
               <div class="box-group" id="accordion">
                 <!-- we are adding the .panel class so bootstrap.js collapse plugin detects it -->
                 
-                  <div class="panel box {{ $problem->pivot->points == $problem->Category->points ? 'box-success' : 'box-info' }}">
+                  <div class="panel box {{ $problem->pivot->points >= $problem->Category->points/2 ? 'box-success' : 'box-info' }}">
                     <div class="box-header with-border text-center">
                       <h4 class="box-title">
                         <a data-toggle="collapse" data-parent="#accordion" href="#{{$problem->id}}">
@@ -66,7 +66,7 @@
                               <a href="{{ route('user.takeminorhint', ["user" => $user->id, "problem" => $problem->id]) }}" data-toggle="tooltip" data-placement="top" title="Points will cut to half.">Take a Hint!</a>
                             @endif
                             <p class="text-center">
-                              @if($problem->pivot->points != $problem->Category->points)
+                              @if($problem->pivot->points < $problem->Category->points/2)
                                 <br>
                                 <form action="{{ route('user.solveparticipantproblem',[ "user" => $user->id, "problem" => $problem->id]) }}" method="POST" style="display: inline;">
                                   {{ csrf_field() }}

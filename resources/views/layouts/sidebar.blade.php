@@ -56,7 +56,7 @@
               <li class="{{ Route::is('user.indexparticipantproblem') ? "active" : "" }}"><a href="{{ route('user.indexparticipantproblem', Auth::user()->id) }}"><i class="fa fa-puzzle-piece"></i> <span>My Problems</span></a></li>
             @endif
             @if(session()->has('leaderboard'))
-              <li class=""><a href="#"><i class="fa fa-trophy"></i> <span>LeaderBoard</span></a></li>
+              <li class=""><a href="#" data-toggle="tooltip" data-placement="right" title="Will be enebled after evening..."><i class="fa fa-trophy"></i> <span>LeaderBoard</span></a></li>
             @endif
             <li><a href="#"><i class="fa fa-bomb"></i> <span>Rules</span></a></li>
           </ul>

@@ -217,6 +217,10 @@ class UserController extends Controller
             $request->session()->flash('flashDanger', 'UnAutherized Access Detected.');
             return back();
         }
+        if($problem->pivot->points >= $problem->Category->points/2){
+            $request->session()->flash('flashWarning', 'No need of hint now!.');
+            return back();   
+        }
         if($problem->pivot->hastakenminorhint == 1 || $problem->pivot->hastakenminorhint == true){
             $request->session()->flash('flashWarning', 'Hint already taken.');
             return back();   
@@ -242,6 +246,10 @@ class UserController extends Controller
         if(Gate::denies('show-participantproblem', [ $user, $problem ] )){
             $request->session()->flash('flashDanger', 'UnAutherized Access Detected.');
             return back();
+        }
+        if($problem->pivot->points >= $problem->Category->points/2){
+            $request->session()->flash('flashWarning', 'No need of hint now!.');
+            return back();   
         }
         if($problem->pivot->hastakenminorhint != 1 && $problem->pivot->hastakenminorhint != true){
             $request->session()->flash('flashWarning', 'Take Minor Hint First.');
@@ -272,13 +280,13 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function solveParticipantProblem(Request $request, $id, $problem)
+    public function solveParticipantProblem(Request $request, $id, $problemId)
     {   
         $this->validate($request, [
             'flag' => 'required|string|max:256',
         ]);
         $user = User::findOrFail($id);
-        $problem = $user->Problems()->wherePivot('problem_id',$problem)->first();
+        $problem = $user->Problems()->wherePivot('problem_id',$problemId)->first();
         if(Gate::denies('show-participantproblem', [ $user, $problem ] )){
             $request->session()->flash('flashDanger', 'UnAutherized Access Detected.');
             return back();
@@ -323,6 +331,7 @@ class UserController extends Controller
                     "hastried" => true,
                 ]);
         }
+        $problem = $user->Problems()->wherePivot('problem_id',$problemId)->first();
         return view('user.showparticipantproblem')->with('user',$user)->with('problem',$problem);
     }
 }

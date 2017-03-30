@@ -42,33 +42,12 @@ class AuthServiceProvider extends ServiceProvider
         });
 
         Gate::define('index-participantproblem', function ($user, $id) {
-            $current = Carbon::now();
-            $starttime = Carbon::parse(session('starttime'));
-            $endtime = Carbon::parse(session('endtime'));
-            if( !($current->between($starttime,$endtime)) ){
-                session()->forget('round');
-                session()->forget('user_in_round');
-                session()->forget('leaderboard');
-                session()->forget('starttime');
-                session()->forget('endtime');
-                return false;
-            }
+            
             return session()->has('user_in_round') && $user->id == $id;
         });
 
         Gate::define('show-participantproblem', function ($user, $id, $problem) {
-            $current = Carbon::now();
-            $starttime = Carbon::parse(session('starttime'));
-            $endtime = Carbon::parse(session('endtime'));
-            if( !($current->between($starttime,$endtime)) ){
-                session()->forget('round');
-                session()->forget('user_in_round');
-                session()->forget('leaderboard');
-                session()->forget('starttime');
-                session()->forget('endtime');
-                return false;
-            }
-            return session()->has('user_in_round') && $user->id == $id->id && $user->Problems->contains($problem);
+            return session()->has('user_in_round') && $user->id == $id->id;
         });
         
     }
