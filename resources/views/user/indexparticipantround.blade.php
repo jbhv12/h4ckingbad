@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'All the Users')
+@section('title', 'All the Rounds for A Team')
 
 @section('content-header')
 	<b>Hi,</b> {{ $user->name }}
@@ -53,7 +53,10 @@
                               <br>
                               @if($round->pivot->hasstarted == 0 || $round->pivot->hasstarted == '0' || $round->pivot->hasstarted == false)
                                 <br>
-                                <a href="#" class="btn btn-block btn-info"> Start H4cking</a>
+                                <form action="{{ route('user.startparticipantround',[ "user" => $user->id, "round" => $round->id]) }}" method="POST" style="display: inline;">
+                                  {{ csrf_field() }}
+                                  <button type="submit" name="submitButton" class="btn btn-info btn-block" data-toggle="tooltip" data-placement="top" title="Read all instruction/rules carefully before starting.">Start Hacking</button>
+                                </form>
                                 <br>
                               @else
                                 <b>Strted At : </b> {{ Carbon::parse($round->pivot->starttime)->toDayDateTimeString() }}

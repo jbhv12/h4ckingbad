@@ -12,6 +12,8 @@
 
     <title>@yield('title') - {{ config('app.name', 'Catch The Flag') }}</title>
 
+    <link rel="shortcut icon" href="{{ url('/img/icon.png') }}">
+
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 

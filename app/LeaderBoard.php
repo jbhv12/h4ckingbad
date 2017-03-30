@@ -24,4 +24,36 @@ class LeaderBoard extends Model
         'points',
         'position',
     ];
+
+    /**
+     * Get Hours from the time
+     *
+     */
+    public function getHours(){
+        $init = $this->time;
+        $hours = floor($init / 3600);
+
+        return $hours;
+    }
+    
+    /**
+     * Get Minutes from the time
+     *
+     */
+    public function getMinutes(){
+        $hours = $this->getHours();
+        $minutes = floor(($this->time - ($hours * 3600)) / 60);
+        return $minutes;
+    }
+    /**
+     * Get Seconds from the time
+     *
+     */
+    public function getSeconds(){
+        $hours = $this->getHours();
+        $hMin = $this->time - ($hours * 3600);
+        $minutes = $this->getMinutes();
+        $seconds = $hMin - ($minutes * 60);
+        return $seconds;
+    }
 }

@@ -52,8 +52,12 @@
             <!-- Optionally, you can add icons to the links -->
             <li class="{{ Route::is('team.edit') ? "active" : "" }}"><a href="{{ route('team.edit', Auth::user()->UserProfile->id) }}"><i class="fa fa-user"></i> <span>Team Profile</span></a></li>
             <li class="{{ Route::is('user.indexparticipantround') ? "active" : "" }}"><a href="{{ route('user.indexparticipantround', Auth::user()->id) }}"><i class="fa fa-flag"></i> <span>My Rounds</span></a></li>
-            <li><a href="#"><i class="fa fa-puzzle-piece"></i> <span>My Problems</span></a></li>
-            <li><a href="#"><i class="fa fa-trophy"></i> <span>LeaderBoard</span></a></li>
+            @if(session()->has('round'))
+              <li class="{{ Route::is('user.indexparticipantproblem') ? "active" : "" }}"><a href="{{ route('user.indexparticipantproblem', Auth::user()->id) }}"><i class="fa fa-puzzle-piece"></i> <span>My Problems</span></a></li>
+            @endif
+            @if(session()->has('leaderboard'))
+              <li class=""><a href="#"><i class="fa fa-trophy"></i> <span>LeaderBoard</span></a></li>
+            @endif
             <li><a href="#"><i class="fa fa-bomb"></i> <span>Rules</span></a></li>
           </ul>
           <!-- /.sidebar-menu -->

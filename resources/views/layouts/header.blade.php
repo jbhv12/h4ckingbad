@@ -26,6 +26,16 @@
                 <a href="{{ route('team.create') }}">Sign Up</a>
             </li>
           @else
+            @if(session()->has('endtime'))
+              <li class="">
+                <a href="#">Timer here</a>
+              </li>
+            @endif
+            @if(session()->has('user_in_round'))
+              <li class="">
+                <a href="#" class="btn btn-danger">End Round</a>
+              </li>
+            @endif
             <!-- User Account Menu -->
             <li class="dropdown user user-menu">
               <!-- Menu Toggle Button -->
