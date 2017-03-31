@@ -1,0 +1,8 @@
+There are 3 directories located in home directory.
+
+[*]executables: it contains executable binaries. You have to fetch flag from these binaries.
+[*]source: it contains source code for each binary. The first line of each file shows points for that perticular problem. It's in formate: [x,y,z], where x=points you earn if solve it without any hints; y=point you get if you take hint1; z=points you get if you take hint2. Next few lines are abstract of a problem. The actual flag and password are replaced with keywords 'flag' and 'secret' respectively.(for obvious reasons)
+[*]hints: it contains all the hints. however, you are not given read access for them. Ask for it if you need it.
+
+solve as many problems as you can, as fast as you can.
+

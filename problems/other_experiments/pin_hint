@@ -1,0 +1,1 @@
+pin lies between 0000 and 9999. you can write code that iterate through these numbers and tries each and every one possibility.This way you'll get a pin, which in turn will fetch the flag.

@@ -1,0 +1,1 @@
+Jesse uses string literals to compare two strings to determine the correctness of password.So,they must exist inside binary as plain text.

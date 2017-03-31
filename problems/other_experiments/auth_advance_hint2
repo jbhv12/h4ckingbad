@@ -1,0 +1,4 @@
+Every function call has an activation record on the stack. The activation record has a return address, which redirects the flow of execution when function returns. If you somehow manage to change this return address you can mange to fetch the flag.
+
+YEAH!SCIENCE!!
+

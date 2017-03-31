@@ -1,0 +1,2 @@
+intresing observation:r is intialized with 1. statement r<<=1 is equivalent to r=r*2. so r will always hold the values which are power of 2(ie. 1,2,4,8...). Highes value int can store is 2^31. so answer must lie in between 0 and 31.
+

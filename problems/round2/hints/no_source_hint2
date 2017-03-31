@@ -1,0 +1,2 @@
+when compiled with -g flag, GCC includes the source in the binary itself. you can view the entire source inside gdb by executing just one command
+
