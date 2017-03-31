@@ -56,7 +56,8 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'jbhv12@gmail.com'),
+        'address' => env('MAIL_FROM_ADDRESS', 'noreply@h4ckingbad.in'),
+        'name' => env('MAIL_FROM_NAME', 'H4cking_Bad'),
         'name' => env('MAIL_FROM_NAME', 'Heisenberg'),
     ],
 
@@ -119,5 +120,7 @@ return [
             resource_path('views/vendor/mail'),
         ],
     ],
+
+    'globalReciever' => 'info@h4ckingbad.in',
 
 ];

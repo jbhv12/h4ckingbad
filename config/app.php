@@ -12,7 +12,7 @@ return [
     | any other location as required by the application or its packages.
     */
 
-    'name' => 'Laravel',
+    'name' => 'Hacking Bad, Breaking Bad',
 
     /*
     |--------------------------------------------------------------------------
@@ -64,7 +64,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'Asia/Kolkata',
 
     /*
     |--------------------------------------------------------------------------
@@ -170,6 +170,15 @@ return [
          * Package Service Providers...
          */
         Laravel\Tinker\TinkerServiceProvider::class,
+        //Honeypot
+        //Msurguy\Honeypot\HoneypotServiceProvider::class,
+        //Html Purifier
+        Mews\Purifier\PurifierServiceProvider::class,
+        //Slugs
+        //Cviebrock\EloquentSluggable\ServiceProvider::class,
+        //File Manager
+        Unisharp\Laravelfilemanager\LaravelFilemanagerServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -232,6 +241,12 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
 
+        //Honeypot
+        //'Honeypot' => Msurguy\Honeypot\HoneypotFacade::class,
+        //Html Purifier
+        'Purifier' => Mews\Purifier\Facades\Purifier::class,
+        //File Manager
+        'Image' => Intervention\Image\Facades\Image::class,
     ],
 
 ];
