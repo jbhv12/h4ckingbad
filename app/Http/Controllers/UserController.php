@@ -363,4 +363,19 @@ class UserController extends Controller
         $problem = $user->Problems()->wherePivot('problem_id',$problemId)->first();
         return view('user.showparticipantproblem')->with('user',$user)->with('problem',$problem);
     }
+
+    /**
+     * Display a the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showCurrentLeaderboard(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+        $roundId = session()->get('round')->id;
+        $usersInRound = UserInRound::select('id')->where('round_id',$roundId)->get()->pluck('id')->toArray();
+        $leaderboard = Leaderboard::with('UserInRound')->whereIn('user_in_round_id',$usersInRound)->orderBy('points','desc')->orderBy('time','asc')->get();
+        
+        return view('user.showcurrentleaderboard')->with('user',$user)->with('leaderboard',$leaderboard);
+    }
 }

@@ -28,7 +28,7 @@
           @else
             @if(session()->has('endtime'))
               <li class="">
-                <a href="#">Timer here</a>
+                <a href="#"><i class="fa fa-clock-o"> </i> No Time Limit!</a>
               </li>
             @endif
             @if(session()->has('user_in_round'))

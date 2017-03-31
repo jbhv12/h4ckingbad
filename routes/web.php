@@ -46,3 +46,4 @@ Route::get('user/{user}/problem/{problem}', 'UserController@showParticipantProbl
 Route::post('user/{user}/problem/{problem}', 'UserController@solveParticipantProblem')->name('user.solveparticipantproblem');
 Route::get('user/{user}/problem/{problem}/minor', 'UserController@takeMinorhint')->name('user.takeminorhint');
 Route::get('user/{user}/problem/{problem}/major', 'UserController@takeMajorhint')->name('user.takemajorhint');
+Route::get('user/{user}/leaderboard', 'UserController@showCurrentLeaderboard')->name('user.showcurrentleaderboard');

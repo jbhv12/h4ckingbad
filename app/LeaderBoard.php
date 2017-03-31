@@ -56,4 +56,9 @@ class LeaderBoard extends Model
         $seconds = $hMin - ($minutes * 60);
         return $seconds;
     }
+
+    public function UserInRound()
+    {
+        return $this->belongsTo('App\UserInRound', 'user_in_round_id', 'id');
+    }
 }

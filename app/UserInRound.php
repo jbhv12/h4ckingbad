@@ -25,4 +25,18 @@ class UserInRound extends Model
         'starttime',
         'endtime',
     ];
+
+    /**
+     * Get the User record that own this userprofile.
+     * One to One Relationship , this table has foreign key
+     */
+    public function User()
+    {
+        return $this->belongsTo('App\User', 'user_id', 'id');
+    }
+
+    public function Round()
+    {
+        return $this->belongsTo('App\Roud', 'round_id', 'id');
+    }
 }
