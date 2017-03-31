@@ -22,8 +22,10 @@ Contributers are always welcomed! Feel free to add functionality, optimize code 
 ## Contributors:
 
 [Jay](https://github.com/jbhv12): Backend, Problem setter (binary)
+
 [Mihir](https://github.com/smartm13): Problem setter (web)
-[Raj](https://github.com/rpshah)L Backend, Frontend, Optimizations
+
+[Raj](https://github.com/rpshah): Backend, Frontend, Optimizations
 
 ## License
 
