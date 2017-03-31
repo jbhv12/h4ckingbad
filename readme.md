@@ -1,4 +1,4 @@
-#h4ckingbad
+# h4ckingbad
 
 open source platform to host CTF event. Originally created to organize an event in GTU techfest'17.
 
