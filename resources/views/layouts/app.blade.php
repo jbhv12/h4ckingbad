@@ -96,6 +96,10 @@
             @include('layouts.footer')
         @show
 
+<body>
+    <div id="app">
+	@include ('layouts.nav')
+        @yield('content')
     </div>
     
     @section('scripts')

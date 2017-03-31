@@ -16,7 +16,7 @@ return [
     |
     */
 
-    'driver' => env('MAIL_DRIVER', 'smtp'),
+    'driver' => env('MAIL_DRIVER', 'mail'),
 
     /*
     |--------------------------------------------------------------------------
@@ -29,7 +29,7 @@ return [
     |
     */
 
-    'host' => env('MAIL_HOST', 'smtp.mailgun.org'),
+    'host' => env('MAIL_HOST', 'smtp.gmail.com'),
 
     /*
     |--------------------------------------------------------------------------
@@ -58,6 +58,7 @@ return [
     'from' => [
         'address' => env('MAIL_FROM_ADDRESS', 'noreply@h4ckingbad.in'),
         'name' => env('MAIL_FROM_NAME', 'H4cking_Bad'),
+        'name' => env('MAIL_FROM_NAME', 'Heisenberg'),
     ],
 
     /*
@@ -76,7 +77,7 @@ return [
     /*
     |--------------------------------------------------------------------------
     | SMTP Server Username
-    |--------------------------------------------------------------------------
+    |----------------------------------------------------------	----------------
     |
     | If your SMTP server requires a username for authentication, you should
     | set it here. This will get used to authenticate with your server on

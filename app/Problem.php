@@ -50,4 +50,9 @@ class Problem extends Model
     {
         return $this->belongsToMany('App\User', 'problems_by_users', 'problem_id', 'user_id')->withPivot('id','users_in_rounds_id','hastried','hastakenminorhint','hastakenmajorhint','time','points')->withTimestamps();
     }
+
+class Problem extends Model
+{
+    protected $table = 'problems';
+    //
 }

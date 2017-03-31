@@ -89,4 +89,9 @@ class User extends Authenticatable
     }
 
 
+
+public function userStats()
+    {
+        return $this->hasOne('App\UserStats','id');
+    }
 }
