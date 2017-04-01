@@ -8,7 +8,7 @@ h4ckingbad is web platform developed with laravel. It's purpose is to host probl
 It's currently live on: http://h4ckingbad.eastus.cloudapp.azure.com
 
 Also, you can find specific problems desigend fot GTU techfest'17 here:
-web(round 1): http://h4ckingbad.appspot.com
+web(round 1): https://h4ckingbad.appspot.com
 binary(round 2 & 3): see problems directory in source
 
 ## Installing
