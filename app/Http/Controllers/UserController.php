@@ -374,7 +374,7 @@ class UserController extends Controller
         $user = User::findOrFail($id);
         $roundId = session()->get('round')->id;
         $usersInRound = UserInRound::select('id')->where('round_id',$roundId)->get()->pluck('id')->toArray();
-        $leaderboard = Leaderboard::with('UserInRound')->whereIn('user_in_round_id',$usersInRound)->orderBy('points','desc')->orderBy('time','asc')->get();
+        $leaderboard = Leaderboard::with('UserInRound')->whereIn('user_in_round_id',$usersInRound)->orderBy('points','desc')->orderBy('time','asc')->paginate(20);
         
         return view('user.showcurrentleaderboard')->with('user',$user)->with('leaderboard',$leaderboard);
     }

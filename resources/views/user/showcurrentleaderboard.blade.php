@@ -42,7 +42,7 @@
             <tbody>
             	@forelse ($leaderboard as $user)
                   <tr>
-                    <td>{{ $loop->index + 1 }}</td>
+                    <td>{{ (($leaderboard->currentPage()-1) * $leaderboard->perPage()) + $loop->index + 1 }}</td>
                     <td>{{ $user->UserInRound->User->name }}</td>
                     <td>{{ $user->points }}</td>
                     <td>{{ $user->getHours() }} HH : {{ $user->getMinutes() }} MM : {{ $user->getSeconds() }} SS</td>
@@ -55,6 +55,7 @@
                 @endforelse
             </tbody>
           </table>
+          {{ $leaderboard->links() }}
         </div>
         <!-- /.col -->
       </div>

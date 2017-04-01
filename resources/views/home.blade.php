@@ -3,14 +3,6 @@
 @section('title', 'Home')
 
 @section('content')
-<div class="container-fluid">
-
-//Title.Tagline
-start button:
-
-<a href="/c1/start"> START BUTTON </a><br>
-<a href="/c2/start"> START BUTTON </a><br>
-<a href="/c3/start"> START BUTTON </a><br>
 <div class="container">
     <div class="row">
         <div class="col-md-12">

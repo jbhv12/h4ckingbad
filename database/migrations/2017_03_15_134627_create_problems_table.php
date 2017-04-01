@@ -15,7 +15,7 @@ class CreateProblemsTable extends Migration
     {
 
     //  hintArray = [pointstodeduct...] sorted by pointstodeduct
-
+    /*
       Schema::create('problems', function (Blueprint $table) {
           $table->increments('id');
           $table->string('name');     //added this
@@ -34,6 +34,7 @@ class CreateProblemsTable extends Migration
           $table->string('downloadableFilePath');
 	  $table->integer('contest_id')->default(0);
       });
+      */
     }
 
     /**

@@ -12,32 +12,30 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
       $this->call('UserTableSeeder');
-      $this->call('ProblemsTableSeeder');
-      $this->call('CategoriesTableSeeder');
-      $this->call('ContestsTableSeeder');
+      //$this->call('ProblemsTableSeeder');
+      //$this->call('CategoriesTableSeeder');
+      //$this->call('ContestsTableSeeder');
     }
 }
 class UserTableSeeder extends Seeder
 {
 public function run()
 {
-    DB::table('users')->delete();
-    User::create(array(
-        'name'     => 'test',
-        'email'    => 'test@test.com',
-        'password' => Hash::make('test'),
-    ));
-    User::create(array(
-        'name'     => 'a',
-        'email'    => 'a@a.a',
-        'password' => Hash::make('a'),
-    ));
+    $user = new App\User;
+    $user->name = "admin";
+    $user->email = "admin@admin.com";
+    $user->password = bcrypt('password');
+    $user->save();
+
+    $admingroup = App\AccessGroup::adminGroup();
+    $user->AccessGroups()->attach($admingroup);
 }
 }
 class ProblemsTableSeeder extends Seeder
 {
 public function run()
 {
+  /**
   $sampleHintArray = array(array(10,"hint1cost10"),array(20,"hint2"));
   $sampleCategoryArray = array(1,2);
     DB::table('problems')->delete();
@@ -52,26 +50,32 @@ public function run()
         'problemPageUrl' => '/',
         'downloadableFilePath' => '/tmp'
     ]);
+
+    */
 }
 }
 class CategoriesTableSeeder extends Seeder
 {
 public function run()
 {
+  /**
     DB::table('categories')->delete();
     DB::table('categories')->insert([
         'id'     => 1,
         'name'    => 'web',
     ]);
+    */
 }
 }
 class ContestsTableSeeder extends Seeder
 {
 public function run()
 {
+  /**
     DB::table('contests')->delete();
     DB::table('contests')->insert([
         'id'     => 1,
     ]);
+    */
 }
 }

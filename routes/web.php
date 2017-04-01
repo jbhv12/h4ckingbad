@@ -13,14 +13,12 @@
 
 Route::get('/', function () {
 	return redirect()->route('home');
-//Route::get('/', function () {
-//    return 'welcome';
-//});
+});
 Auth::routes();
 
 //TODO: create controller files for all routes
 
-
+/**
 
 Route::get('categories',
   ['as' => 'problems', 'uses' => 'ProblemController@showCategories']);
@@ -84,6 +82,8 @@ Route::get('/scoreboard', function(){
 	echo count($all);
 });
 
+*/
+
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/rules', 'HomeController@rules')->name('rules');
 Route::resource('team', 'UserProfileController');
@@ -114,5 +114,3 @@ Route::post('user/{user}/problem/{problem}', 'UserController@solveParticipantPro
 Route::get('user/{user}/problem/{problem}/minor', 'UserController@takeMinorhint')->name('user.takeminorhint');
 Route::get('user/{user}/problem/{problem}/major', 'UserController@takeMajorhint')->name('user.takemajorhint');
 Route::get('user/{user}/leaderboard', 'UserController@showCurrentLeaderboard')->name('user.showcurrentleaderboard');
-//ht=[[pid,hid]..]
-//ha=[[cost,txt],..]

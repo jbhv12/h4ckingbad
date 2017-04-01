@@ -13,6 +13,7 @@ class CreateUserStatsTable extends Migration
      */
     public function up()
     {
+      /**
       Schema::create('userStats', function (Blueprint $table) {
           $table->increments('id');
           $table->string('problems_solved');  //problems_solved=[prob_id...]
@@ -24,6 +25,7 @@ class CreateUserStatsTable extends Migration
           $table->integer('cc');
 
       });
+      */
     }
 
     /**

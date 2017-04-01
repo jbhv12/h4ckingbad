@@ -13,6 +13,7 @@ class CreateContestsTable extends Migration
      */
     public function up()
     {
+        /*
         Schema::create('contests', function (Blueprint $table) {
             $table->increments('id');
 	    $table->integer('start_time');
@@ -20,6 +21,7 @@ class CreateContestsTable extends Migration
 	    $table->integer('duration');
             $table->timestamps();
         });
+        */
     }
 
     /**
@@ -29,6 +31,8 @@ class CreateContestsTable extends Migration
      */
     public function down()
     {
+        /*
         Schema::dropIfExists('contests');
+        */
     }
 }

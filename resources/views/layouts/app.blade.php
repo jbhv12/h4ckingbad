@@ -96,12 +96,6 @@
             @include('layouts.footer')
         @show
 
-<body>
-    <div id="app">
-	@include ('layouts.nav')
-        @yield('content')
-    </div>
-    
     @section('scripts')
       <!-- jQuery library -->
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
