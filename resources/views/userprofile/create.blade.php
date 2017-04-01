@@ -53,7 +53,7 @@
               @endif
           </div>
           <div class="form-group has-feedback{{ $errors->has('secondmembername') ? ' has-error' : '' }}">
-            <input type="text" class="form-control" id="secondmembername" name="secondmembername" placeholder="Second Person Name" value="{{ old('secondmembername') }}" required>
+            <input type="text" class="form-control" id="secondmembername" name="secondmembername" placeholder="(Optional) Second Person Name" value="{{ old('secondmembername') }}">
             <span class="glyphicon glyphicon-user form-control-feedback"></span>
               @if ($errors->has('secondmembername'))
                 <span class="help-block">
@@ -83,7 +83,7 @@
               @endif
           </div>
           <div class="form-group has-feedback{{ $errors->has('secondmemberemail') ? ' has-error' : '' }}">
-            <input type="email" class="form-control" id="secondmemberemail" name="secondmemberemail" placeholder="Second Person Email" value="{{ old('secondmemberemail') }}" required>
+            <input type="email" class="form-control" id="secondmemberemail" name="secondmemberemail" placeholder="(Optional) Second Person Email" value="{{ old('secondmemberemail') }}">
             <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
               @if ($errors->has('secondmemberemail'))
                 <span class="help-block">
@@ -113,7 +113,7 @@
               @endif
           </div>
           <div class="form-group has-feedback{{ $errors->has('secondmembermobile') ? ' has-error' : '' }}">
-            <input type="mobile" class="form-control" id="secondmembermobile" name="secondmembermobile" placeholder="Second Person Mobile" value="{{ old('secondmembermobile') }}" required>
+            <input type="mobile" class="form-control" id="secondmembermobile" name="secondmembermobile" placeholder="(Optional) Second Person Mobile" value="{{ old('secondmembermobile') }}">
             <span class="glyphicon glyphicon-earphone form-control-feedback"></span>
               @if ($errors->has('secondmembermobile'))
                 <span class="help-block">

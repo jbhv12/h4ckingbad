@@ -54,11 +54,11 @@ class UserProfileController extends Controller
         $this->validate($request, [
             'teamname' => 'required|string|max:128|unique:userprofiles,teamname',
             'firstmembername' => 'required|string|max:128',
-            'secondmembername' => 'required|string|max:128',
+            'secondmembername' => 'nullable|string|max:128',
             'firstmemberemail' => 'required|email|unique:userprofiles,firstmemberemail|unique:users,email',
-            'secondmemberemail' => 'required|email',
+            'secondmemberemail' => 'nullable|email',
             'firstmembermobile' => 'required|numeric|digits:10',
-            'secondmembermobile' => 'required|numeric|digits:10',
+            'secondmembermobile' => 'nullable|numeric|digits:10',
             'password' => 'required|string|min:6|confirmed',
             'password_confirmation' => 'required',
             'terms' => 'accepted',
@@ -136,10 +136,10 @@ class UserProfileController extends Controller
         $this->validate($request, [
             'teamname' => 'required|string|max:128|unique:userprofiles,teamname,' . $userprofile->id . ',id',
             'firstmembername' => 'required|string|max:128',
-            'secondmembername' => 'required|string|max:128',
-            'secondmemberemail' => 'required|email',
+            'secondmembername' => 'nullable|string|max:128',
+            'secondmemberemail' => 'nullable|email',
             'firstmembermobile' => 'required|numeric|digits:10',
-            'secondmembermobile' => 'required|numeric|digits:10',
+            'secondmembermobile' => 'nullable|numeric|digits:10',
         ]);
 
         $user = User::findOrFail($userprofile->user->id);

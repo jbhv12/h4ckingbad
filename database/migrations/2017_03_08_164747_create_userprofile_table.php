@@ -26,13 +26,13 @@ class CreateUserprofileTable extends Migration
             $table->unique('teamname');
 
             $table->string('firstmembername',128);
-            $table->string('secondmembername',128);
+            $table->string('secondmembername',128)->nullable();
 
             $table->string('firstmemberemail',64);
-            $table->string('secondmemberemail',64);
+            $table->string('secondmemberemail',64)->nullable();
 
             $table->string('firstmembermobile',16);
-            $table->string('secondmembermobile',16);
+            $table->string('secondmembermobile',16)->nullable();
             
             $table->timestamps();
         });
